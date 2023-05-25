@@ -3,11 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./component/login/login.component";
 import {RegisterComponent} from "./component/register/register.component";
 import {TwofaComponent} from "./component/twofa/twofa.component";
+import {canActivateTwofa} from "../../guards/twofa.guard";
 
 const routes: Routes = [
   {
     path: 'twofa',
-    component: TwofaComponent
+    component: TwofaComponent,
+    canActivate: [canActivateTwofa]
   },
   {
     path: 'login',
@@ -16,7 +18,9 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
-  }
+  },
+  {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
+  {path: '**', redirectTo: 'dashboard'},
 ];
 
 @NgModule({

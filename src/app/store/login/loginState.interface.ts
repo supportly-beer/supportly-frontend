@@ -5,4 +5,5 @@ export interface LoginState {
   error: HttpErrorResponse | null;
   email: string | null;
   password: string | null;
+  code: string | null;
 }

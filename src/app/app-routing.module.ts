@@ -10,8 +10,20 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
-  {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
-  {path: '**', redirectTo: 'dashboard'},
+  {
+    path: 'account',
+    loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule)
+  },
+  {
+    path: 'faq',
+    loadChildren: () => import('./modules/faq/faq.module').then(m => m.FaqModule)
+  },
+  {
+    path: 'ticket',
+    loadChildren: () => import('./modules/ticket/ticket.module').then(m => m.TicketModule)
+  },
+  {path: '', pathMatch: 'full', redirectTo: '404'},
+  {path: '**', redirectTo: '404'},
 ];
 
 @NgModule({

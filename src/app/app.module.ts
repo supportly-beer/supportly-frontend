@@ -11,11 +11,15 @@ import {loginReducer} from "./store/login/login.reducers";
 import {EffectsModule} from "@ngrx/effects";
 import {Effects} from "./store/effects";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {LayoutComponent} from "./modules/shared/layout/layout.component";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,9 +36,12 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
       maxAge: 25,
       logOnly: false,
       autoPause: true,
-    })
+    }),
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

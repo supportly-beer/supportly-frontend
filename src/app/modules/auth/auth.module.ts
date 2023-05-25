@@ -4,7 +4,7 @@ import {RegisterComponent} from "./component/register/register.component";
 import {LoginComponent} from "./component/login/login.component";
 import {TwofaComponent} from "./component/twofa/twofa.component";
 import {AuthRoutingModule} from "./auth-routing.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -13,12 +13,13 @@ import {ReactiveFormsModule} from "@angular/forms";
     LoginComponent,
     TwofaComponent
   ],
-    imports: [
-        CommonModule,
-        AuthRoutingModule,
-        NgOptimizedImage,
-        ReactiveFormsModule
-    ]
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    NgOptimizedImage,
+    ReactiveFormsModule,
+    FormsModule
+  ]
 })
 export class AuthModule {
 }

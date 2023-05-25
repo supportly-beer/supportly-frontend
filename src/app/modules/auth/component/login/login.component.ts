@@ -5,7 +5,7 @@ import {FormControl, Validators} from "@angular/forms";
 import * as LoginActions from "../../../../store/login/login.actions";
 import {AppState} from "../../../../store/appState.interface";
 import {select, Store} from "@ngrx/store";
-import {errorSelector, isLoadingSelector} from "../../../../store/login/login.selectors";
+import {loginErrorSelector, loginIsLoadingSelector} from "../../../../store/login/login.selectors";
 
 @Component({
   selector: 'app-login',
@@ -17,14 +17,13 @@ export class LoginComponent {
   requestError: boolean = false;
   emailError: boolean = false;
   passwordError: boolean = false;
-  isLoading: boolean = false;
 
-  generalError: string = "";
+  requestErrorMessage: string = "";
   emailErrorMessage: string = "";
   passwordErrorMessage: string = "";
 
-  isLoading$: Observable<boolean>
-  error$: Observable<HttpErrorResponse | null>
+  loginIsLoading$: Observable<boolean>
+  loginError$: Observable<HttpErrorResponse | null>
 
   emailInputField = new FormControl('', {
     validators: [
@@ -43,24 +42,31 @@ export class LoginComponent {
   constructor(
     private store: Store<AppState>
   ) {
-    this.isLoading$ = this.store.pipe(select(isLoadingSelector));
-    this.error$ = this.store.pipe(select(errorSelector));
+    this.loginIsLoading$ = this.store.pipe(select(loginIsLoadingSelector));
+    this.loginError$ = this.store.pipe(select(loginErrorSelector));
 
-    this.error$.subscribe((error) => {
+    this.loginError$.subscribe((error) => {
       if (!error) return;
-
-      this.requestError = true;
 
       switch (error.status) {
         case 400:
-          this.generalError = "Bei der Anfrage an das Backend ist ein Fehler augetreten!"
+          this.requestError = true;
+          this.requestErrorMessage = "Bei der Anfrage an das Backend ist ein Fehler augetreten!"
           break;
         case 401:
-          this.generalError = "Leider scheinst du nicht die nötigen Zugriffsrechte zu besitzen!"
           break;
+        case 403:
+          this.requestError = true;
+          this.requestErrorMessage = "Das Passwort ist falsch!"
+          break;
+        case 404:
+          this.requestError = true;
+          this.requestErrorMessage = "Es wurde kein Nutzer mit dieser Email Adresse gefunden!"
+          break
         case 500:
         default:
-          this.generalError = "Es ist ein Fehler augetreten. Bitte melde diesen Fehler einem Administrator!"
+          this.requestError = true;
+          this.requestErrorMessage = "Es ist ein Fehler augetreten. Bitte melde diesen Fehler einem Administrator!"
           break;
       }
     });
@@ -71,7 +77,7 @@ export class LoginComponent {
     this.emailError = false;
     this.passwordError = false;
 
-    this.generalError = "";
+    this.requestErrorMessage = "";
     this.emailErrorMessage = "";
     this.passwordErrorMessage = "";
 
@@ -79,7 +85,7 @@ export class LoginComponent {
     this.checkPassword();
 
     if (!this.requestError && !this.emailError && !this.passwordError) {
-      this.store.dispatch(LoginActions.login({
+      this.store.dispatch(LoginActions.preLogin({
         email: this.emailInputField.value!, password: this.passwordInputField.value!
       }))
     }
@@ -92,10 +98,10 @@ export class LoginComponent {
 
     if (this.emailInputField.hasError("email")) {
       this.emailError = true;
-      this.emailErrorMessage = "Diese Email ist nicht valide. Bitte überprüfen Sie Ihre Eingabe!";
+      this.emailErrorMessage = "Diese Email ist nicht valide!";
     } else {
       this.emailError = true;
-      this.emailErrorMessage = "Die Email wird benötigt! Bitte überprüfen Sie Ihre Eingabe!";
+      this.emailErrorMessage = "Die Email wird benötigt!";
     }
   }
 
@@ -106,10 +112,10 @@ export class LoginComponent {
 
     if (this.passwordInputField.hasError("minlength")) {
       this.passwordError = true;
-      this.passwordErrorMessage = "Das Passwort hat nicht die nötige Länge. Bitte überprüfen Sie Ihre Eingabe!";
+      this.passwordErrorMessage = "Das Passwort hat nicht die nötige Länge!";
     } else {
       this.passwordError = true;
-      this.passwordErrorMessage = "Das Passwort wird benötigt! Bitte überprüfen Sie Ihre Eingabe!";
+      this.passwordErrorMessage = "Das Passwort wird benötigt!";
     }
   }
 }

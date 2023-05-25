@@ -7,12 +7,30 @@ export const initialState: LoginState = {
   error: null,
   email: null,
   password: null,
+  code: null
 }
 
 export const loginReducer = createReducer(
   initialState,
-  on(LoginActions.login, (state, {email, password}) => ({...state, isLoading: true, email: email, password: password})),
+  on(LoginActions.preLogin, (state, {email, password}) => ({
+    ...state,
+    isLoading: true,
+    email: email,
+    password: password
+  })),
+  on(LoginActions.loginTwofa, (state, {email, code}) => ({
+    ...state,
+    isLoading: true,
+    email: email,
+    code: code
+  })),
   on(LoginActions.loginSuccess, (state) => ({
+    ...state,
+    isLoading: false,
+    email: null,
+    password: null
+  })),
+  on(LoginActions.loginCleanup, (state) => ({
     ...state,
     isLoading: false,
     email: null,

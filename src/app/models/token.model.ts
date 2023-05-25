@@ -1,6 +1,6 @@
 export class TokenModel {
   constructor(
-    public accessToken: string
+    public token: string
   ) {
   }
 }

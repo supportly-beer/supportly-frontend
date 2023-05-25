@@ -1,33 +1,116 @@
-<div class="h-screen w-screen flex flex-col items-center justify-center gap-2">
-  <div class="bg-base-200 w-1/3 rounded-xl shadow-lg flex flex-col p-4 gap-6">
+<div class="w-full h-full flex flex-col items-center justify-center gap-2">
+  <div class="bg-base-200 w-2/5 rounded-xl shadow-lg flex flex-col p-4 gap-6">
     <div class="w-full flex justify-center">
-      <img class="w-2/3" ngSrc="assets/logo.png" alt="Logo image" height="296" width="774"/>
+      <img alt="Logo image" class="w-2/3" height="296" ngSrc="assets/logo.png" width="774"/>
     </div>
     <div class="divider"></div>
     <div class="w-full">
-      <div class="alert bg-primary/25 shadow-lg">
+      <div *ngIf="!requestError" class="alert bg-primary/25 shadow-lg">
         <div>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-               class="stroke-current flex-shrink-0 w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"></path>
           </svg>
           <span>Willkommen auf der Supportly Webseite! Wir befinden uns derzeit in einer offenen Testphase. Bitte beachten Sie, dass das Produkt noch nicht fertig entwickelt ist.</span>
+        </div>
+      </div>
+      <div *ngIf="requestError" class="alert alert-error shadow-lg">
+        <div>
+          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"></path>
+          </svg>
+          <span>{{requestErrorMessage}}</span>
         </div>
       </div>
     </div>
     <div class="flex flex-col">
       <div class="flex flex-col gap-4">
         <div class="w-full flex flex-row gap-4">
-          <input class="w-full input" placeholder="Vorname" type="text" required/>
-          <input class="w-full input" placeholder="Nachname" type="text" required/>
+          <div class="w-full flex flex-col gap-2">
+            <input [formControl]="firstNameInputField" class="w-full input" placeholder="Vorname" required type="text"/>
+            <div *ngIf="firstNameError" class="alert alert-error shadow-lg">
+              <div>
+                <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+                <span>{{firstNameErrorMessage}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="w-full flex flex-col gap-2">
+            <input [formControl]="lastNameInputField" class="w-full input" placeholder="Nachname" required type="text"/>
+            <div *ngIf="lastNameError" class="alert alert-error shadow-lg">
+              <div>
+                <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+                <span>{{lastNameErrorMessage}}</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="w-full">
-          <input class="w-full input" placeholder="Email Adresse" type="email" required/>
+        <div class="w-full flex flex-col gap-2">
+          <input [formControl]="emailInputField" class="w-full input" placeholder="Email Adresse" required
+                 type="email"/>
+          <div *ngIf="emailError" class="alert alert-error shadow-lg">
+            <div>
+              <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2"></path>
+              </svg>
+              <span>{{emailErrorMessage}}</span>
+            </div>
+          </div>
         </div>
-        <div class="w-full flex flex-row gap-4">
-          <input class="w-full input" placeholder="Passwort" type="password" required/>
-          <input class="w-full input" placeholder="Passwort wiederholen" type="password" required/>
+        <div class="w-full flex flex-col gap-2">
+          <div class="w-full flex flex-row gap-4">
+            <div class="w-full flex flex-col gap-2">
+              <input [formControl]="passwordInputField" class="w-full input" placeholder="Passwort" required
+                     type="password"/>
+              <div *ngIf="passwordError" class="alert alert-error shadow-lg">
+                <div>
+                  <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2"></path>
+                  </svg>
+                  <span>{{passwordErrorMessage}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-col gap-2">
+              <input [formControl]="repeatPasswordInputField" class="w-full input" placeholder="Passwort wiederholen" required
+                     type="password"/>
+              <div *ngIf="repeatPasswordError" class="alert alert-error shadow-lg">
+                <div>
+                  <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2"></path>
+                  </svg>
+                  <span>{{repeatPasswordErrorMessage}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="passwordNotSameError" class="alert alert-error shadow-lg">
+            <div>
+              <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-width="2"></path>
+              </svg>
+              <span>{{passwordNotSameErrorMessage}}</span>
+            </div>
+          </div>
         </div>
         <div class="flex flex-row justify-between">
           <p class="pr-2">Schon <a class="link" routerLink="/auth/login">einen Account</a>?</p>
@@ -35,18 +118,18 @@
       </div>
     </div>
     <div class="w-full flex justify-center">
-      <a class="btn btn-primary w-full" (click)="switchModal()">Registrieren</a>
+      <a (click)="startRegister()" class="btn btn-primary w-full">Registrieren</a>
     </div>
   </div>
-  <div class="modal" [ngClass]="modalOpen ? 'modal-open' : ''">
+  <div [ngClass]="modalOpen ? 'modal-open' : ''" class="modal">
     <div class="modal-box">
       <h3 class="font-bold text-lg">Allgemeine Geschäftsbedingungen</h3>
       <p class="py-4">Hallo, vielen Dank dass Sie einen Account bei uns erstellen wollen! Allederings wir Sie vorher
         bitten unsere <a class="link">Allgemeinen Geschäftsbedingungen</a> zu bestätigen. Sie können nicht fortfahren
         ohne diese zu bestätigen!</p>
       <div class="modal-action">
-        <a class="btn btn-error" (click)="switchModal()">Ablehnen</a>
-        <a class="btn btn-success">Annehmen</a>
+        <a (click)="switchModal()" class="btn btn-error">Ablehnen</a>
+        <a (click)="finishRegister()" class="btn btn-success">Annehmen</a>
       </div>
     </div>
   </div>
