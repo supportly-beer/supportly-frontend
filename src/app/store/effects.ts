@@ -31,7 +31,7 @@ export class Effects {
 
               this.router.navigate(["/auth/twofa"]).then()
 
-              return of(LoginActions.loginFailure({error}))
+              return of(LoginActions.loginFailure({error: null}))
             }
 
             return of(LoginActions.loginFailure({error}))

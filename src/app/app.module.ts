@@ -15,6 +15,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./interceptors/auth.interceptor";
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {LayoutComponent} from "./modules/shared/layout/layout.component";
+import {NgOptimizedImage} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {LayoutComponent} from "./modules/shared/layout/layout.component";
       logOnly: false,
       autoPause: true,
     }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgOptimizedImage
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
