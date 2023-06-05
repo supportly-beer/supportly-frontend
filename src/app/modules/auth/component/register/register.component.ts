@@ -63,6 +63,8 @@ export class RegisterComponent {
     ]
   });
 
+  loading: boolean = false;
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -114,6 +116,8 @@ export class RegisterComponent {
   finishRegister() {
     this.switchModal()
 
+    this.loading = true;
+
     this.authService.register(
       this.emailInputField.value!,
       this.firstNameInputField.value!,
@@ -122,6 +126,7 @@ export class RegisterComponent {
     ).subscribe({
       next: (operationSuccessModel: OperationSuccessModel) => {
         if (!operationSuccessModel.successful) {
+          this.loading = false;
           this.requestError = true;
           this.requestErrorMessage = operationSuccessModel.error!
         } else {
@@ -129,6 +134,7 @@ export class RegisterComponent {
         }
       },
       error: (err) => {
+        this.loading = false;
         this.requestError = true;
 
         switch (err.status) {
