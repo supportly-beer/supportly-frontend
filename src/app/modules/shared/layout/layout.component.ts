@@ -3,8 +3,11 @@ import {Observable} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserModel} from "../../../models/user.model";
 import {
+  faArrowRight,
+  faClose,
   faComments,
-  faHouse, faMagnifyingGlass,
+  faHouse,
+  faMagnifyingGlass,
   faQuestionCircle,
   faRightFromBracket,
   faUser,
@@ -14,7 +17,11 @@ import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../store/appState.interface";
 import {Router} from "@angular/router";
 import * as LoginActions from "../../../store/login/login.actions";
+import * as SearchActions from "../../../store/search/search.actions";
 import {userErrorSelector, userIsLoadingSelector, userSelector} from "../../../store/user/user.selectors";
+import {searchErrorSelector, searchIsLoadingSelector, searchSelector} from "../../../store/search/search.selectors";
+import {FormControl} from "@angular/forms";
+import {SearchResultModel} from "../../../models/searchResult.model";
 
 @Component({
   selector: 'app-layout',
@@ -23,9 +30,13 @@ import {userErrorSelector, userIsLoadingSelector, userSelector} from "../../../s
 })
 export class LayoutComponent {
 
-  isLoading$: Observable<boolean>;
-  error$: Observable<HttpErrorResponse | null>
+  userIsLoading$: Observable<boolean>;
+  userError$: Observable<HttpErrorResponse | null>
   user$: Observable<UserModel | null>
+
+  searchIsLoading$: Observable<boolean>;
+  searchError$: Observable<HttpErrorResponse | null>
+  searchResult$: Observable<SearchResultModel | null>
 
   dashboard: IconDefinition = faHouse
   ticket: IconDefinition = faComments
@@ -33,6 +44,10 @@ export class LayoutComponent {
   faq: IconDefinition = faQuestionCircle
   logout: IconDefinition = faRightFromBracket
   search: IconDefinition = faMagnifyingGlass
+  close: IconDefinition = faClose
+  rightArrow: IconDefinition = faArrowRight
+
+  modalOpen: boolean = false
 
   navbarLinks: { url: string, icon: IconDefinition }[] = [
     {url: "/dashboard", icon: this.dashboard},
@@ -41,13 +56,19 @@ export class LayoutComponent {
     {url: "/faq", icon: this.faq}
   ]
 
+  searchInputField = new FormControl('');
+
   constructor(
     private store: Store<AppState>,
     private router: Router
   ) {
-    this.isLoading$ = this.store.pipe(select(userIsLoadingSelector));
-    this.error$ = this.store.pipe(select(userErrorSelector));
+    this.userIsLoading$ = this.store.pipe(select(userIsLoadingSelector));
+    this.userError$ = this.store.pipe(select(userErrorSelector));
     this.user$ = this.store.pipe(select(userSelector));
+
+    this.searchIsLoading$ = this.store.pipe(select(searchIsLoadingSelector));
+    this.searchError$ = this.store.pipe(select(searchErrorSelector));
+    this.searchResult$ = this.store.pipe(select(searchSelector));
   }
 
   isUrl(url: string): boolean {
@@ -56,5 +77,16 @@ export class LayoutComponent {
 
   logoutUser() {
     this.store.dispatch(LoginActions.logout())
+  }
+
+  switchModal() {
+    this.modalOpen = !this.modalOpen
+  }
+
+  searchTickets() {
+    this.store.dispatch(SearchActions.getResults({
+      query: this.searchInputField.value!,
+      limit: 5
+    }))
   }
 }

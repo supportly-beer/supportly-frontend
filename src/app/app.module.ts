@@ -16,6 +16,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {LayoutComponent} from "./modules/shared/layout/layout.component";
 import {NgOptimizedImage} from "@angular/common";
 import {NgApexchartsModule} from "ng-apexcharts";
+import {searchReducer} from "./store/search/search.reducers";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
@@ -34,7 +35,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     NgApexchartsModule,
 
     // Store Modules
-    StoreModule.forRoot({'user': userReducer, 'login': loginReducer}),
+    StoreModule.forRoot({'user': userReducer, 'login': loginReducer, 'search': searchReducer}),
     EffectsModule.forRoot([Effects]),
 
     StoreDevtoolsModule.instrument({
@@ -43,7 +44,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
       autoPause: true,
     }),
     FontAwesomeModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}

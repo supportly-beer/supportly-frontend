@@ -5,13 +5,17 @@ import {LoginComponent} from "./component/login/login.component";
 import {TwofaComponent} from "./component/twofa/twofa.component";
 import {AuthRoutingModule} from "./auth-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ResetPasswordComponent} from "./component/reset-password/reset-password.component";
+import {ValidateEmailComponent} from "./component/validate-email/validate-email.component";
 
 
 @NgModule({
   declarations: [
     RegisterComponent,
     LoginComponent,
-    TwofaComponent
+    TwofaComponent,
+    ResetPasswordComponent,
+    ValidateEmailComponent
   ],
   imports: [
     CommonModule,

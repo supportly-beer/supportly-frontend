@@ -4,6 +4,8 @@ import {LoginComponent} from "./component/login/login.component";
 import {RegisterComponent} from "./component/register/register.component";
 import {TwofaComponent} from "./component/twofa/twofa.component";
 import {canActivateTwofa} from "../../guards/twofa.guard";
+import {ValidateEmailComponent} from "./component/validate-email/validate-email.component";
+import {ResetPasswordComponent} from "./component/reset-password/reset-password.component";
 
 const routes: Routes = [
   {
@@ -18,6 +20,14 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'validate-email/:token/:email',
+    component: ValidateEmailComponent
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent
   },
   {path: '', pathMatch: 'full', redirectTo: 'dashboard'},
   {path: '**', redirectTo: 'dashboard'},
