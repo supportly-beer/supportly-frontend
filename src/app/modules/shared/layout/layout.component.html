@@ -24,18 +24,13 @@
             <img src="https://supportly.blob.core.windows.net/branding/logo-small.png" alt="">
           </div>
         </div>
-        <div class="flex justify-center items-center p-2 w-1/2">
-          <label class="input-group">
-            <input class="input w-full rounded-full" placeholder="Suche nach einem Ticket...">
-            <span class="btn btn-primary"><fa-icon class="text-xl" [icon]="search"></fa-icon></span>
-          </label>
+        <div *ngIf="(user$ | async) as user" class="flex justify-center items-center">
+          <h1 class="text-2xl">Willkommen, {{user.firstName}} {{user.lastName}}</h1>
         </div>
-        <div *ngIf="(user$ | async) as user" class="flex justify-center items-center pr-4">
-          <div class="avatar">
-            <div class="w-12 rounded-full">
-              <img src="{{user.profilePictureUrl}}" alt=""/>
-            </div>
-          </div>
+        <div class="flex justify-center items-center pr-4">
+          <span class="btn btn-circle btn-ghost" (click)="switchModal()">
+            <fa-icon class="text-xl" [icon]="search"></fa-icon>
+          </span>
         </div>
       </div>
       <div class="w-full h-full">
@@ -43,6 +38,32 @@
       </div>
       <div class="footer flex justify-center items-center">
         <h1>Baked with 💜 by Alaskeriffic</h1>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="modalOpen ? 'modal-open' : ''" class="modal">
+    <div class="modal-box flex flex-col gap-4">
+      <div class="w-full flex justify-between gap-8">
+        <input [formControl]="searchInputField" class="input input-primary w-full"
+               placeholder="Suche nach einem Ticket..." (input)="searchTickets()"/>
+
+        <a class="btn btn-circle btn-ghost text-xl" (click)="switchModal()">
+          <fa-icon [icon]="close"></fa-icon>
+        </a>
+      </div>
+      <div *ngIf="(searchResult$ | async) as searchResult" class="flex flex-col w-full">
+        <div *ngFor="let searchTicket of searchResult.results; let ticketIndex = index">
+          <div
+            class="w-full flex items-center rounded justify-between p-2 {{ticketIndex % 2 == 0 ? 'bg-black/10' : ''}}">
+            <div class="flex gap-6">
+              <h1 class="text-lg">{{searchTicket.identifier}}</h1>
+              <h1 class="text-lg">{{searchTicket.title}}</h1>
+            </div>
+            <a class="btn btn-sm btn-circle btn-ghost text-lg" (click)="switchModal()">
+              <fa-icon [icon]="rightArrow"></fa-icon>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

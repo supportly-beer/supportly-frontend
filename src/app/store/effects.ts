@@ -4,13 +4,26 @@ import {AuthService} from "../services/auth.service";
 import * as LoginActions from "./login/login.actions";
 import {catchError, map, mergeMap, of} from "rxjs";
 import * as UserActions from "./user/user.actions";
+import * as SearchActions from "./search/search.actions";
 import {Router} from "@angular/router";
 import {AppState} from "./appState.interface";
 import {Store} from "@ngrx/store";
 import {UserService} from "../services/user.service";
+import {SearchService} from "../services/search.service";
 
 @Injectable()
 export class Effects {
+  $search = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SearchActions.getResults),
+      mergeMap((action) => {
+        return this.searchService.search(action.limit, action.query).pipe(
+          map(searchResult => SearchActions.getResultsSuccess({searchResult})),
+          catchError(error => of(SearchActions.getResultsFailure({error})))
+        )
+      })
+    ));
+
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LoginActions.preLogin),
@@ -95,6 +108,7 @@ export class Effects {
     private actions$: Actions,
     private authService: AuthService,
     private userService: UserService,
+    private searchService: SearchService,
     private router: Router,
     private store: Store<AppState>
   ) {

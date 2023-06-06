@@ -14,6 +14,13 @@ import {userIsLoadingSelector} from "./store/user/user.selectors";
 export class AppComponent {
 
   userIsLoading$: Observable<boolean>
+  ignoredSidebarUrls: string[] = [
+    "/auth/login",
+    "/auth/register",
+    "/auth/twofa",
+    "/auth/validate-email",
+    "/auth/reset-password"
+  ]
 
   constructor(
     private store: Store<AppState>,
@@ -31,6 +38,7 @@ export class AppComponent {
   }
 
   shouldShowSidebar(): boolean {
-    return this.router.url !== "/auth/login" && this.router.url !== "/auth/register" && this.router.url !== "/auth/twofa"
+    // check if any part of the url matches
+    return !this.ignoredSidebarUrls.some(url => this.router.url.includes(url))
   }
 }

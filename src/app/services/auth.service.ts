@@ -45,4 +45,8 @@ export class AuthService {
       headers: {"Authorization": "Bearer " + token}
     })
   }
+
+  validateEmail(token: string, email: string): Observable<OperationSuccessModel> {
+    return this.httpClient.post<OperationSuccessModel>(`${this.apiUrl}/auth/validate-email?token=${token}&email=${email}`, {});
+  }
 }
