@@ -19,6 +19,7 @@ export type ChartOptions = {
   stroke: ApexStroke;
   tooltip: ApexTooltip;
   dataLabels: ApexDataLabels;
+  colors: any;
 }
 
 @Component({
@@ -33,21 +34,21 @@ export class DashboardComponent {
   constructor() {
     this.chartOptions = {
       series: [{
-        name: "series1",
-        data: [this.randomData, this.randomData, this.randomData, this.randomData,
-               this.randomData, this.randomData, this.randomData, this.randomData,
-               this.randomData, this.randomData, this.randomData, this.randomData,
-               this.randomData, this.randomData, this.randomData, this.randomData,
-               this.randomData, this.randomData, this.randomData, this.randomData
-             , this.randomData, this.randomData, this.randomData, this.randomData]
+        type: "area",
+        name: "Tickets",
+        data: [this.randomData, this.randomData, this.randomData,
+               this.randomData, this.randomData, this.randomData,
+               this.randomData, this.randomData, this.randomData,
+               this.randomData, this.randomData, this.randomData]
       }],
       chart: {
-        height: '290',
+        height: '300',
         type: "area",
         toolbar: false,
+        align: "center",
       },
 
-      annotations: {
+      /*annotations: {
         yaxis: [
           {
             y: 0,
@@ -59,7 +60,7 @@ export class DashboardComponent {
             offsetY: 0
           }
         ]
-      },
+      },*/
 
       dataLabels: {
         enabled: false
@@ -67,39 +68,26 @@ export class DashboardComponent {
       stroke: {
         curve: "smooth",
       },
+      title: {
+        text: "Wie viele Tickets wurden erstellt",
+        align: "left",
+        colors: ["white"],
+      },
       xaxis: {
         axisBorder: {
-          show: false
+          show: true,
         },
-        type: "datetime",
-        categories: [
-          "2023-06-02T00:00:00.000Z",
-          "2023-06-02T01:30:00.000Z",
-          "2023-06-02T02:30:00.000Z",
-          "2023-06-02T03:30:00.000Z",
-          "2023-06-02T04:30:00.000Z",
-          "2023-06-02T05:30:00.000Z",
-          "2023-06-02T06:30:00.000Z",
-          "2023-06-02T07:30:00.000Z",
-          "2023-06-02T08:30:00.000Z",
-          "2023-06-02T09:30:00.000Z",
-          "2023-06-02T10:30:00.000Z",
-          "2023-06-02T11:30:00.000Z",
-          "2023-06-02T12:30:00.000Z",
-          "2023-06-02T13:30:00.000Z",
-          "2023-06-02T14:30:00.000Z",
-          "2023-06-02T15:30:00.000Z",
-          "2023-06-02T16:30:00.000Z",
-          "2023-06-02T17:30:00.000Z",
-          "2023-06-02T18:30:00.000Z",
-          "2023-06-02T19:30:00.000Z",
-          "2023-06-02T20:30:00.000Z",
-          "2023-06-02T21:30:00.000Z",
-          "2023-06-02T22:30:00.000Z",
-          "2023-06-02T23:30:00.000Z"
-        ],
+        categories: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+        labelStyle: {
+            color: "white",
+          }
+        },
+      yaxis: {
+        labelStyle: {
+            color: "white",
+          }
+        },
 
-      },
       grid: {
         yaxis:{
           lines:{
@@ -107,11 +95,7 @@ export class DashboardComponent {
           }
         }
       },
-      tooltip: {
-        x: {
-          format: "dd/MM/yyyy HH:mm"
-        }
-      }
+
     };
   }
 
