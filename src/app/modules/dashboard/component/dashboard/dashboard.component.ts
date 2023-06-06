@@ -5,7 +5,9 @@ import {
   ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
+  ApexFill,
   ApexXAxis,
+  ApexYAxis,
   ApexDataLabels,
   ApexTooltip,
   ApexStroke,
@@ -15,11 +17,12 @@ import {
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
+  fill: ApexFill;
   xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
   stroke: ApexStroke;
   tooltip: ApexTooltip;
   dataLabels: ApexDataLabels;
-  colors: any;
 }
 
 @Component({
@@ -30,6 +33,7 @@ export type ChartOptions = {
 export class DashboardComponent {
   @ViewChild("chartComponent") chartComponent!: ChartComponent;
   public chartOptions: Partial<ChartOptions> | any;
+  public chartSecond: Partial<ChartOptions> | any;
 
   constructor() {
     this.chartOptions = {
@@ -37,10 +41,75 @@ export class DashboardComponent {
         type: "area",
         name: "Tickets",
         data: [this.randomData, this.randomData, this.randomData,
-               this.randomData, this.randomData, this.randomData,
-               this.randomData, this.randomData, this.randomData,
-               this.randomData, this.randomData, this.randomData]
+          this.randomData, this.randomData, this.randomData,
+          this.randomData, this.randomData, this.randomData,
+          this.randomData, this.randomData, this.randomData],
       }],
+      color: ["#661AE6"],
+
+      chart: {
+        height: '300',
+        type: "area",
+        toolbar: false,
+        align: "center",
+      },
+
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: "smooth",
+        width: 1.5,
+      },
+
+      xaxis: {
+        show: false,
+        axisTicks: false,
+        axisBorder: {
+          show: false,
+        },
+        categories: ["Jänner", "Februar", "März", "April", "Mai", "Juni","Juli",
+                     "August", "September", "Oktober", "November", "Dezember"],
+        labels: {
+          show: false
+        }
+      },
+
+      yaxis: {
+        show: false,
+      },
+
+      fill: {
+        type: "gradient",
+      },
+
+      grid: {
+        yaxis: {
+          lines: {show: false}
+        }
+      },
+      tooltip: {
+        enabled: true,
+        followCursor: false,
+        backgroundColor: "#242933",
+        onDatasetHover: {
+          highlightDataSeries: false,
+        },
+      },
+
+    };
+
+    this.chartSecond = {
+      series: [{
+        type: "area",
+        name: "Tickets",
+        data: [this.randomData, this.randomData, this.randomData,
+          this.randomData, this.randomData, this.randomData,
+          this.randomData, this.randomData, this.randomData,
+          this.randomData, this.randomData, this.randomData],
+      }],
+      color: ["#661AE6"],
+
       chart: {
         height: '300',
         type: "area",
@@ -67,36 +136,39 @@ export class DashboardComponent {
       },
       stroke: {
         curve: "smooth",
+        width: 1.5,
       },
-      title: {
-        text: "Wie viele Tickets wurden erstellt",
-        align: "left",
-        colors: ["white"],
-      },
-      xaxis: {
-        axisBorder: {
-          show: true,
-        },
-        categories: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-        labelStyle: {
-            color: "white",
-          }
-        },
-      yaxis: {
-        labelStyle: {
-            color: "white",
-          }
-        },
 
-      grid: {
-        yaxis:{
-          lines:{
-            show: false
-          }
+      xaxis: {
+        show: false,
+        axisTicks: false,
+        axisBorder: {
+          show: false,
+        },
+        categories: ["Jänner", "Februar", "März", "April", "Mai", "Juni","Juli",
+                     "August", "September", "Oktober", "November", "Dezember"],
+        labels: {
+          show: false
         }
       },
 
+      yaxis: {
+        show: false,
+      },
+
+      fill: {
+        type: "gradient",
+      },
+
+      grid: {
+        yaxis: {
+          lines: {show: false}
+        }
+      },
+
+
     };
+
   }
 
 
