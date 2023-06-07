@@ -1,41 +1,33 @@
 <div class="w-full h-full">
   <div class="flex flex-col gap-16">
-
     <div class="w-full flex flex-row justify-between gap-6">
       <div class="w-full h-80 bg-base-200 rounded-xl shadow-lg p-4" id="chartComponent">
-        <apx-chart
-
-          [chart]="chartOptions.chart"
-          [dataLabels]="chartOptions.dataLabels"
-          [grid]="chartOptions.grid"
-          [tooltip]="chartOptions.tooltip"
-          [series]="chartOptions.series"
-          [stroke]="chartOptions.stroke"
-          [xaxis]="chartOptions.xaxis"
-          [yaxis]="chartOptions.yaxis"
-          [fill]="chartOptions.fill"
-
-        ></apx-chart>
+        <apx-chart id="chartOne"
+          [chart]="chartOne.chart"
+          [dataLabels]="chartOne.dataLabels"
+          [grid]="chartOne.grid"
+          [tooltip]="chartOne.tooltip"
+          [series]="chartOne.series"
+          [stroke]="chartOne.stroke"
+          [xaxis]="chartOne.xaxis"
+          [yaxis]="chartOne.yaxis"
+          [fill]="chartOne.fill">
+        </apx-chart>
       </div>
       <div class="w-full h-80 bg-base-200 rounded-xl shadow-lg p-4">
-
-        <apx-chart
-
-          [chart]="chartSecond.chart"
-          [dataLabels]="chartSecond.dataLabels"
-          [tooltip]="chartSecond.tooltip"
-          [grid]="chartSecond.grid"
-          [series]="chartSecond.series"
-          [stroke]="chartSecond.stroke"
-          [xaxis]="chartSecond.xaxis"
-          [yaxis]="chartSecond.yaxis"
-          [fill]="chartSecond.fill"
-
-        ></apx-chart>
-
+        <apx-chart id="chartTwo"
+          [chart]="chartTwo.chart"
+          [dataLabels]="chartTwo.dataLabels"
+          [tooltip]="chartTwo.tooltip"
+          [grid]="chartTwo.grid"
+          [series]="chartTwo.series"
+          [stroke]="chartTwo.stroke"
+          [xaxis]="chartTwo.xaxis"
+          [yaxis]="chartTwo.yaxis"
+          [fill]="chartTwo.fill">
+        </apx-chart>
       </div>
     </div>
-
     <div class="w-full flex flex-row justify-between gap-6">
       <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
         <div class="flex flex-col w-full">
@@ -47,7 +39,6 @@
           <h1 class="text-3xl text-success">15 Minuten</h1>
         </div>
       </div>
-
       <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
         <div class="flex flex-col w-full">
           <h1 class="text-2xl text-primary-content">Kundenaccounts</h1>
@@ -58,7 +49,6 @@
           <h1 class="text-3xl text-warning">1234 Accounts</h1>
         </div>
       </div>
-
       <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
         <div class="flex flex-col w-full">
           <h1 class="text-2xl text-primary-content">Deine Tickets</h1>
@@ -69,7 +59,6 @@
           <h1 class="text-3xl text-success">12 Tickets</h1>
         </div>
       </div>
-
       <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
         <div class="flex flex-col w-full">
           <h1 class="text-2xl text-primary-content">Globale Tickets</h1>
@@ -81,7 +70,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 

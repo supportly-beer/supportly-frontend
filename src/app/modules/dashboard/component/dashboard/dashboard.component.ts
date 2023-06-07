@@ -1,29 +1,6 @@
 import {Component, ViewChild} from "@angular/core";
-
-
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexFill,
-  ApexXAxis,
-  ApexYAxis,
-  ApexDataLabels,
-  ApexTooltip,
-  ApexStroke,
-
-} from "ng-apexcharts";
-
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  fill: ApexFill;
-  xaxis: ApexXAxis;
-  yaxis: ApexYAxis;
-  stroke: ApexStroke;
-  tooltip: ApexTooltip;
-  dataLabels: ApexDataLabels;
-}
+import {ChartComponent} from "ng-apexcharts";
+import {ChartOptions} from "../../../../types/chartOptions.type";
 
 @Component({
   selector: 'app-dashboard',
@@ -31,58 +8,61 @@ export type ChartOptions = {
   styleUrls: []
 })
 export class DashboardComponent {
-  @ViewChild("chartComponent") chartComponent!: ChartComponent;
-  public chartOptions: Partial<ChartOptions> | any;
-  public chartSecond: Partial<ChartOptions> | any;
+
+  @ViewChild("chartOne") chartComponentOne!: ChartComponent;
+  public chartOne: Partial<ChartOptions> | any;
+
+  @ViewChild("chartTwo") chartComponentTwo!: ChartComponent;
+  public chartTwo: Partial<ChartOptions> | any;
 
   constructor() {
-    this.chartOptions = {
+    this.chartOne = {
       series: [{
         type: "area",
         name: "Tickets",
-        data: [this.randomData, this.randomData, this.randomData,
+        data: [
           this.randomData, this.randomData, this.randomData,
           this.randomData, this.randomData, this.randomData,
-          this.randomData, this.randomData, this.randomData],
+          this.randomData, this.randomData, this.randomData,
+          this.randomData, this.randomData, this.randomData
+        ],
       }],
-      color: ["#661AE6"],
-
+      colors: ["#661AE6"],
       chart: {
         height: '300',
         type: "area",
         toolbar: false,
         align: "center",
       },
-
       dataLabels: {
         enabled: false
       },
       stroke: {
         curve: "smooth",
         width: 1.5,
+        colors: ["#661AE6"]
       },
-
       xaxis: {
         show: false,
         axisTicks: false,
         axisBorder: {
           show: false,
         },
-        categories: ["Jänner", "Februar", "März", "April", "Mai", "Juni","Juli",
-                     "August", "September", "Oktober", "November", "Dezember"],
+        categories: [
+          "Jänner", "Februar", "März", "April", "Mai", "Juni",
+          "Juli", "August", "September", "Oktober", "November", "Dezember"
+        ],
         labels: {
           show: false
         }
       },
-
       yaxis: {
         show: false,
       },
-
       fill: {
         type: "gradient",
+        colors: ["#661AE6"]
       },
-
       grid: {
         yaxis: {
           lines: {show: false}
@@ -96,84 +76,64 @@ export class DashboardComponent {
           highlightDataSeries: false,
         },
       },
-
     };
 
-    this.chartSecond = {
+    this.chartTwo = {
       series: [{
         type: "area",
         name: "Tickets",
-        data: [this.randomData, this.randomData, this.randomData,
+        data: [
           this.randomData, this.randomData, this.randomData,
           this.randomData, this.randomData, this.randomData,
-          this.randomData, this.randomData, this.randomData],
+          this.randomData, this.randomData, this.randomData,
+          this.randomData, this.randomData, this.randomData
+        ],
       }],
-      color: ["#661AE6"],
-
+      colors: ["#661AE6"],
       chart: {
         height: '300',
         type: "area",
         toolbar: false,
         align: "center",
       },
-
-      /*annotations: {
-        yaxis: [
-          {
-            y: 0,
-            strokeDashArray: 0,
-            borderColor: "#333",
-            fillColor: "#c2c2c2",
-            opacity: 0.8,
-            offsetX: 0,
-            offsetY: 0
-          }
-        ]
-      },*/
-
       dataLabels: {
         enabled: false
       },
       stroke: {
         curve: "smooth",
         width: 1.5,
+        colors: ["#661AE6"]
       },
-
       xaxis: {
         show: false,
         axisTicks: false,
         axisBorder: {
           show: false,
         },
-        categories: ["Jänner", "Februar", "März", "April", "Mai", "Juni","Juli",
-                     "August", "September", "Oktober", "November", "Dezember"],
+        categories: [
+          "Jänner", "Februar", "März", "April", "Mai", "Juni",
+          "Juli", "August", "September", "Oktober", "November", "Dezember"
+        ],
         labels: {
           show: false
         }
       },
-
       yaxis: {
         show: false,
       },
-
       fill: {
         type: "gradient",
+        colors: ["#661AE6"]
       },
-
       grid: {
         yaxis: {
           lines: {show: false}
         }
       },
-
-
     };
-
   }
-
 
   get randomData() {
     return Math.round(Math.random() * 100);
   }
-
 }
