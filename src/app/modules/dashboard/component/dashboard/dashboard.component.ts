@@ -33,6 +33,14 @@ export class DashboardComponent {
         type: "area",
         toolbar: false,
         align: "center",
+        dropShadow: {
+          enabled: true,
+          color: '#661AE6',
+          top: 50,
+          left: 2,
+          blur: 6,
+          opacity: 0.2,
+        }
       },
       dataLabels: {
         enabled: false
@@ -43,21 +51,32 @@ export class DashboardComponent {
         colors: ["#661AE6"]
       },
       xaxis: {
-        show: false,
+        show: true,
         axisTicks: false,
         axisBorder: {
           show: false,
         },
         categories: [
-          "Jänner", "Februar", "März", "April", "Mai", "Juni",
-          "Juli", "August", "September", "Oktober", "November", "Dezember"
+          "Jan", "Feb", "Mar", "Apr", "Mai", "Jun",
+          "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"
         ],
         labels: {
-          show: false
-        }
+          show: true,
+          rotate: 0,
+          style: {
+            colors: "#FFFFFF",
+          }
+        },
       },
       yaxis: {
         show: false,
+        labels: {
+          show: true,
+          rotate: 0,
+          style: {
+            colors: "#FFFFFF",
+          }
+        }
       },
       fill: {
         type: "gradient",
@@ -95,6 +114,14 @@ export class DashboardComponent {
         type: "area",
         toolbar: false,
         align: "center",
+        dropShadow: {
+          enabled: true,
+          color: '#661AE6',
+          top: 50,
+          left: 2,
+          blur: 6,
+          opacity: 0.2,
+        }
       },
       dataLabels: {
         enabled: false
@@ -105,21 +132,32 @@ export class DashboardComponent {
         colors: ["#661AE6"]
       },
       xaxis: {
-        show: false,
+        show: true,
         axisTicks: false,
         axisBorder: {
           show: false,
         },
         categories: [
-          "Jänner", "Februar", "März", "April", "Mai", "Juni",
-          "Juli", "August", "September", "Oktober", "November", "Dezember"
+          "Jan", "Feb", "Mar", "Apr", "Mai", "Jun",
+          "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"
         ],
         labels: {
-          show: false
-        }
+          show: true,
+          rotate: 0,
+          style: {
+            colors: "#FFFFFF",
+          }
+        },
       },
       yaxis: {
         show: false,
+        labels: {
+          show: true,
+          rotate: 0,
+          style: {
+            colors: "#FFFFFF",
+          }
+        }
       },
       fill: {
         type: "gradient",
@@ -129,6 +167,14 @@ export class DashboardComponent {
         yaxis: {
           lines: {show: false}
         }
+      },
+      tooltip: {
+        enabled: true,
+        followCursor: false,
+        backgroundColor: "#242933",
+        onDatasetHover: {
+          highlightDataSeries: false,
+        },
       },
     };
   }
