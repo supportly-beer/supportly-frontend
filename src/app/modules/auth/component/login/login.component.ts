@@ -51,7 +51,7 @@ export class LoginComponent {
       switch (error.status) {
         case 400:
           this.requestError = true;
-          this.requestErrorMessage = "Bei der Anfrage an das Backend ist ein Fehler augetreten!"
+          this.requestErrorMessage = "Bei der Anfrage an das Backend ist ein Fehler aufgetreten!"
           break;
         case 401:
           break;
@@ -66,7 +66,7 @@ export class LoginComponent {
         case 500:
         default:
           this.requestError = true;
-          this.requestErrorMessage = "Es ist ein Fehler augetreten. Bitte melde diesen Fehler einem Administrator!"
+          this.requestErrorMessage = "Es ist ein Fehler aufgetreten. Bitte melde diesen Fehler einem Administrator!"
           break;
       }
     });
