@@ -146,7 +146,7 @@ export class RegisterComponent {
             break;
           case 500:
           default:
-            this.requestErrorMessage = "Es ist ein Fehler augetreten. Bitte melde diesen Fehler einem Administrator!"
+            this.requestErrorMessage = "Es ist ein Fehler aufgetreten. Bitte melde diesen Fehler einem Administrator!"
             break;
         }
       }
