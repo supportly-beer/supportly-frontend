@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 import {DashboardComponent} from "./component/dashboard/dashboard.component";
 import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -11,7 +13,10 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    FontAwesomeModule
+    FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    NgApexchartsModule,
   ]
 })
 export class DashboardModule {
