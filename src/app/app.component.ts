@@ -6,8 +6,6 @@ import * as UserActions from './store/user/user.actions';
 import {Observable} from "rxjs";
 import {userIsLoadingSelector} from "./store/user/user.selectors";
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

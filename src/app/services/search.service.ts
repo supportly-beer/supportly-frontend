@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {TicketSearchResultModel} from "../models/ticketSearchResult.model";
 import {HttpClient} from "@angular/common/http";
 import {SearchResultModel} from "../models/searchResult.model";
 

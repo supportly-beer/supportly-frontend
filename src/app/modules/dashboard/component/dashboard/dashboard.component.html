@@ -1,73 +1,77 @@
-<div class="w-full h-full">
-  <div class="flex flex-col gap-16">
-    <div class="w-full flex flex-row justify-between gap-6">
+<div class="flex flex-col w-full h-full gap-12">
+  <div *ngIf="(statsResult$ | async) as statsResultModel" class="flex flex-row gap-12">
+    <div class="w-1/2 flex flex-col gap-6">
       <div class="w-full h-80 bg-base-200 rounded-xl shadow-lg p-4" id="chartComponent">
         <apx-chart id="chartOne"
-          [chart]="chartOne.chart"
-          [dataLabels]="chartOne.dataLabels"
-          [grid]="chartOne.grid"
-          [tooltip]="chartOne.tooltip"
-          [series]="chartOne.series"
-          [stroke]="chartOne.stroke"
-          [xaxis]="chartOne.xaxis"
-          [yaxis]="chartOne.yaxis"
-          [fill]="chartOne.fill">
+                   [chart]="ticketsResolvedPerMonthChart.chart"
+                   [dataLabels]="ticketsResolvedPerMonthChart.dataLabels"
+                   [grid]="ticketsResolvedPerMonthChart.grid"
+                   [tooltip]="ticketsResolvedPerMonthChart.tooltip"
+                   [series]="ticketsResolvedPerMonthChart.series"
+                   [stroke]="ticketsResolvedPerMonthChart.stroke"
+                   [xaxis]="ticketsResolvedPerMonthChart.xaxis"
+                   [yaxis]="ticketsResolvedPerMonthChart.yaxis"
+                   [fill]="ticketsResolvedPerMonthChart.fill">
         </apx-chart>
+      </div>
+      <div class="w-full flex flex-row justify-between gap-6">
+        <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
+          <div class="flex flex-col w-full">
+            <h1 class="text-2xl text-primary-content">Zeit pro Ticket</h1>
+            <h1 class="text-sm">Durchschnittliche Zeit pro Ticket</h1>
+          </div>
+          <div class="divider w-full"></div>
+          <div class="flex w-full justify-center items-center">
+            <h1 class="text-3xl" [ngClass]="rightColorForMinutes(statsResultModel.averageTimePerTicket)">{{parseToString(statsResultModel.averageTimePerTicket)}}</h1>
+          </div>
+        </div>
+        <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
+          <div class="flex flex-col w-full">
+            <h1 class="text-2xl text-primary-content">Deine Tickets</h1>
+            <h1 class="text-sm">Derzeit offene Tickets von dir</h1>
+          </div>
+          <div class="divider w-full"></div>
+          <div class="flex w-full justify-center items-center">
+            <h1 class="text-3xl" [ngClass]="rightColorForNumbers(statsResultModel.yourTicketsOpen)">{{statsResultModel.yourTicketsOpen}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w-1/2 flex flex-col gap-6">
+      <div class="w-full flex flex-row justify-between gap-6">
+        <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
+          <div class="flex flex-col w-full">
+            <h1 class="text-2xl text-primary-content">Kundenaccounts</h1>
+            <h1 class="text-sm">Insgesamte Kundenanzahl im System</h1>
+          </div>
+          <div class="divider w-full"></div>
+          <div class="flex w-full justify-center items-center">
+            <h1 class="text-3xl" [ngClass]="rightColorForNumbers(statsResultModel.customerAccounts)">{{statsResultModel.customerAccounts}}</h1>
+          </div>
+        </div>
+        <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
+          <div class="flex flex-col w-full">
+            <h1 class="text-2xl text-primary-content">Globale Tickets</h1>
+            <h1 class="text-sm">Derzeit global offene Tickets</h1>
+          </div>
+          <div class="divider w-full"></div>
+          <div class="flex w-full justify-center items-center">
+            <h1 class="text-3xl" [ngClass]="rightColorForNumbers(statsResultModel.globalTicketsOpen)">{{statsResultModel.globalTicketsOpen}}</h1>
+          </div>
+        </div>
       </div>
       <div class="w-full h-80 bg-base-200 rounded-xl shadow-lg p-4">
         <apx-chart id="chartTwo"
-          [chart]="chartTwo.chart"
-          [dataLabels]="chartTwo.dataLabels"
-          [tooltip]="chartTwo.tooltip"
-          [grid]="chartTwo.grid"
-          [series]="chartTwo.series"
-          [stroke]="chartTwo.stroke"
-          [xaxis]="chartTwo.xaxis"
-          [yaxis]="chartTwo.yaxis"
-          [fill]="chartTwo.fill">
+                   [chart]="averageTimePerTicketPerMonthChart.chart"
+                   [dataLabels]="averageTimePerTicketPerMonthChart.dataLabels"
+                   [tooltip]="averageTimePerTicketPerMonthChart.tooltip"
+                   [grid]="averageTimePerTicketPerMonthChart.grid"
+                   [series]="averageTimePerTicketPerMonthChart.series"
+                   [stroke]="averageTimePerTicketPerMonthChart.stroke"
+                   [xaxis]="averageTimePerTicketPerMonthChart.xaxis"
+                   [yaxis]="averageTimePerTicketPerMonthChart.yaxis"
+                   [fill]="averageTimePerTicketPerMonthChart.fill">
         </apx-chart>
-      </div>
-    </div>
-    <div class="w-full flex flex-row justify-between gap-6">
-      <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
-        <div class="flex flex-col w-full">
-          <h1 class="text-2xl text-primary-content">Zeit pro Ticket</h1>
-          <h1 class="text-sm">Durchschnittliche Zeit pro Ticket</h1>
-        </div>
-        <div class="divider w-full"></div>
-        <div class="flex w-full justify-center items-center">
-          <h1 class="text-3xl text-success">15 Minuten</h1>
-        </div>
-      </div>
-      <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
-        <div class="flex flex-col w-full">
-          <h1 class="text-2xl text-primary-content">Deine Tickets</h1>
-          <h1 class="text-sm">Derzeit offene Tickets von dir</h1>
-        </div>
-        <div class="divider w-full"></div>
-        <div class="flex w-full justify-center items-center">
-          <h1 class="text-3xl text-success">12 Tickets</h1>
-        </div>
-      </div>
-      <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
-        <div class="flex flex-col w-full">
-          <h1 class="text-2xl text-primary-content">Kundenaccounts</h1>
-          <h1 class="text-sm">Insgesamte Kundenanzahl im System</h1>
-        </div>
-        <div class="divider w-full"></div>
-        <div class="flex w-full justify-center items-center">
-          <h1 class="text-3xl text-warning">1234 Accounts</h1>
-        </div>
-      </div>
-      <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
-        <div class="flex flex-col w-full">
-          <h1 class="text-2xl text-primary-content">Globale Tickets</h1>
-          <h1 class="text-sm">Derzeit global offene Tickets</h1>
-        </div>
-        <div class="divider w-full"></div>
-        <div class="flex w-full justify-center items-center">
-          <h1 class="text-3xl text-error">444 Tickets</h1>
-        </div>
       </div>
     </div>
   </div>

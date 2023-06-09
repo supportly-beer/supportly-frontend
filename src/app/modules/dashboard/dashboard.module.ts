@@ -17,8 +17,6 @@ import {NgApexchartsModule} from "ng-apexcharts";
     ReactiveFormsModule,
     FontAwesomeModule,
     NgApexchartsModule,
-
-
   ]
 })
 export class DashboardModule {

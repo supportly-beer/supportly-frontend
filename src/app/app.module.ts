@@ -18,6 +18,7 @@ import {NgOptimizedImage} from "@angular/common";
 import {NgApexchartsModule} from "ng-apexcharts";
 import {searchReducer} from "./store/search/search.reducers";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {statsReducer} from "./store/stats/stats.reducers";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     NgApexchartsModule,
 
     // Store Modules
-    StoreModule.forRoot({'user': userReducer, 'login': loginReducer, 'search': searchReducer}),
+    StoreModule.forRoot({
+      'user': userReducer,
+      'login': loginReducer,
+      'search': searchReducer,
+      'stats': statsReducer
+    }),
     EffectsModule.forRoot([Effects]),
 
     StoreDevtoolsModule.instrument({

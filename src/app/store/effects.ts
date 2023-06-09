@@ -5,14 +5,27 @@ import * as LoginActions from "./login/login.actions";
 import {catchError, map, mergeMap, of} from "rxjs";
 import * as UserActions from "./user/user.actions";
 import * as SearchActions from "./search/search.actions";
+import * as StatsActions from "./stats/stats.actions";
 import {Router} from "@angular/router";
 import {AppState} from "./appState.interface";
 import {Store} from "@ngrx/store";
 import {UserService} from "../services/user.service";
 import {SearchService} from "../services/search.service";
+import {StatsService} from "../services/stats.service";
 
 @Injectable()
 export class Effects {
+  $stats = createEffect(() =>
+    this.actions$.pipe(
+      ofType(StatsActions.fetchStats),
+      mergeMap((action) => {
+        return this.statsService.getStats(action.start, action.end).pipe(
+          map(statsResult => StatsActions.fetchStatsSuccess({statsResult})),
+          catchError(error => of(StatsActions.fetchStatsFailure({error})))
+        )
+      })
+    ))
+
   $search = createEffect(() =>
     this.actions$.pipe(
       ofType(SearchActions.getResults),
@@ -109,6 +122,7 @@ export class Effects {
     private authService: AuthService,
     private userService: UserService,
     private searchService: SearchService,
+    private statsService: StatsService,
     private router: Router,
     private store: Store<AppState>
   ) {
