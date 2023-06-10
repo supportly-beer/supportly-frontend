@@ -8,6 +8,7 @@ export class UserModel {
     public lastName: string,
     public profilePictureUrl: string,
     public twofaEnabled: boolean,
+    public emailVerified: boolean,
     public role: RoleModel
   ) {
   }
