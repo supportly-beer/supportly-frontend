@@ -1,1 +1,44 @@
-<h1>Hello, World (Ticket)</h1>
+<div class="flex flex-col w-full h-full justify-center">
+  <h1 class="text-3xl font-bold mb-8">Support Tickets</h1>
+  <table class="table flex flex-col w-full h-full justify-center">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Subject</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Ticket Creator</th>
+      <th>Ticket Owner</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ticket of getDisplayedTickets()">
+      <td>{{ ticket.id }}</td>
+      <td>{{ ticket.subject }}</td>
+      <td>{{ ticket.description }}</td>
+      <td>{{ ticket.status }}</td>
+      <td>{{ ticket.createdAt | date }}</td>
+      <td>{{ ticket.customer }}</td>
+      <td>{{ ticket.supportAgent }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="flex justify-center mt-4">
+    <button class="btn btn-outline btn-primary" (click)="getPreviousPage()">
+      <span class="font-bold text-xl pr-1">&lt;</span> <span class="pl-1">Previous</span>
+    </button>
+    <button class="btn btn-outline btn-primary ml-2" (click)="getNextPage()">
+      <span class="pr-1">Next</span> <span class="font-bold text-xl pl-1">&gt;</span>
+    </button>
+  </div>
+  <div class="flex justify-center mt-4">
+    <div class="flex items-center">
+      <!--      <span class="mr-2">Skip to page:</span>-->
+      <ng-container *ngFor="let page of getAvailablePageNumbers()">
+        <button [class.btn-primary.]="currentPage === page" class="btn btn-outline ml-2"
+                (click)="goToPage(page)">{{ page }}</button>
+      </ng-container>
+    </div>
+  </div>
+</div>

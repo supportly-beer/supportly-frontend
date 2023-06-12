@@ -1,8 +1,9 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AccountRoutingModule} from "./account-routing.module";
 import {AccountComponent} from "./component/account/account.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -11,7 +12,9 @@ import {AccountComponent} from "./component/account/account.component";
   imports: [
     CommonModule,
     AccountRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgOptimizedImage,
+    FormsModule
   ]
 })
 export class AccountModule {
