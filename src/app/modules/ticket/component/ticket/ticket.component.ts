@@ -252,7 +252,7 @@ export class TicketComponent {
       },
     ];
     this.currentPage = 1;
-    this.itemsPerPage = 10; // Set the number of tickets to display per page
+    this.itemsPerPage = 9; // Set the number of tickets to display per page
     this.totalItems = this.tickets.length;
   }
 

@@ -34,7 +34,7 @@
   </div>
   <div class="flex justify-center mt-4">
     <div class="flex items-center">
-      <!--      <span class="mr-2">Skip to page:</span>-->
+<!--            <span class="mr-2">Skip to page:</span>-->
       <ng-container *ngFor="let page of getAvailablePageNumbers()">
         <button [class.btn-primary.]="currentPage === page" class="btn btn-outline ml-2"
                 (click)="goToPage(page)">{{ page }}</button>
