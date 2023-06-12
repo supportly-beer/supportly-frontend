@@ -7,37 +7,31 @@
     <div class="divider"></div>
     <div class="w-full">
       <div *ngIf="!tokenInvalid && !generalError" class="alert bg-primary/25 shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>Bitte haben Sie einen Moment Gedult, während wir Ihre Email-Adresse überprüfen. Sie werden automatisch weitergeleitet.</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>Bitte haben Sie einen Moment Gedult, während wir Ihre Email-Adresse überprüfen. Sie werden automatisch weitergeleitet.</span>
       </div>
       <div *ngIf="generalError" class="alert alert-error shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>Es tut uns Leid, aber scheinbar ist uns ein Fehler unterlaufen. Bitte melde dich mit deiner Email-Adresse bei unserem Support!</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>Es tut uns Leid, aber scheinbar ist uns ein Fehler unterlaufen. Bitte melde dich mit deiner Email-Adresse bei unserem Support!</span>
       </div>
       <div *ngIf="tokenInvalid" class="alert alert-error shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>Scheinbar ist dein Token abgelaufen. Wir haben dir automatisch eine neue Email geschickt, bitte prüfe dein Postfach (ggf. auch den Spam Ordner)!</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>Scheinbar ist dein Token abgelaufen. Wir haben dir automatisch eine neue Email geschickt, bitte prüfe dein Postfach (ggf. auch den Spam Ordner)!</span>
       </div>
     </div>
     <div class="w-full">
