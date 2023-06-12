@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AccountRoutingModule} from "./account-routing.module";
 import {AccountComponent} from "./component/account/account.component";
+import {NgApexchartsModule} from "ng-apexcharts";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -11,7 +13,9 @@ import {AccountComponent} from "./component/account/account.component";
   imports: [
     CommonModule,
     AccountRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgApexchartsModule,
+    FormsModule
   ]
 })
 export class AccountModule {
