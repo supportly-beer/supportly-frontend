@@ -15,8 +15,8 @@ import * as StatsActions from "../../../../store/stats/stats.actions";
 })
 export class DashboardComponent {
 
-  public ticketsResolvedPerMonthChart: Partial<ChartOptions> | any;
-  public averageTimePerTicketPerMonthChart: Partial<ChartOptions> | any;
+  public ticketsResolvedByUserPerMonthChart: Partial<ChartOptions> | any;
+  public ticketsResolvedGlobalPerMonthChart: Partial<ChartOptions> | any;
 
   statsIsLoading$: Observable<boolean>;
   statsError$: Observable<HttpErrorResponse | null>
@@ -25,7 +25,7 @@ export class DashboardComponent {
   constructor(
     private store: Store<AppState>
   ) {
-    this.ticketsResolvedPerMonthChart = {
+    this.ticketsResolvedByUserPerMonthChart = {
       series: [{
         type: "area",
         name: "Tickets",
@@ -105,7 +105,7 @@ export class DashboardComponent {
         },
       },
     };
-    this.averageTimePerTicketPerMonthChart = {
+    this.ticketsResolvedGlobalPerMonthChart = {
       series: [{
         type: "area",
         name: "Tickets",
