@@ -8,7 +8,7 @@ import {SearchResultModel} from "../models/searchResult.model";
 })
 export class SearchService {
 
-  private apiUrl: string = "http://localhost:8080"
+  private apiUrl: string = "http://jevzo.com:8080"
 
   constructor(
     private httpClient: HttpClient

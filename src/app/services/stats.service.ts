@@ -8,7 +8,7 @@ import {StatsResultModel} from "../models/statsResult.model";
 })
 export class StatsService {
 
-  private apiUrl: string = "http://localhost:8080"
+  private apiUrl: string = "http://jevzo.com:8080"
 
   constructor(
     private httpClient: HttpClient

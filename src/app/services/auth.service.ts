@@ -9,7 +9,7 @@ import {OperationSuccessModel} from "../models/operationSuccess.model";
 })
 export class AuthService {
 
-  private apiUrl: string = "http://localhost:8080"
+  private apiUrl: string = "http://jevzo.com:8080"
 
   constructor(
     private httpClient: HttpClient
