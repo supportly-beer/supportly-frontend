@@ -19,7 +19,7 @@ export class TicketComponent {
     for (let i = 1; i <= 100; i++) {
       const ticket = {
         identifier: `TICKET-${i}`,
-        title: faker.lorem.sentence(2),
+        title: faker.lorem.sentence(5),
         description: faker.lorem.paragraph(5),
         createdAt: new Date('2023-06-10').getDate(),
         closedAt: new Date('2023-06-10').getDate(),
@@ -34,7 +34,7 @@ export class TicketComponent {
     }
 
     this.currentPage = 1;
-    this.itemsPerPage = 9;
+    this.itemsPerPage = 10;
     this.totalItems = this.tickets.length;
   }
 

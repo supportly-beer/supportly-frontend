@@ -4,12 +4,12 @@
       <div class="indicator">
         <div class="indicator-item indicator-bottom">
           <button class="btn btn-primary btn-circle text-primary-content">
-            <fa-icon class="text-xl" [icon]="upload"></fa-icon>
+            <fa-icon [icon]="upload" class="text-xl"></fa-icon>
           </button>
         </div>
         <div class="avatar">
           <div class="w-48 rounded-full">
-            <img src="{{user.profilePictureUrl}}" alt="Profile picture of the user"/>
+            <img alt="Profile picture of the user" src="{{user.profilePictureUrl}}"/>
           </div>
         </div>
       </div>
@@ -19,14 +19,14 @@
         <div class="indicator">
           <div class="indicator-item indicator-bottom">
             <button class="btn btn-primary btn-circle text-primary-content">
-              <fa-icon class="text-xl" [icon]="rightArrow"></fa-icon>
+              <fa-icon [icon]="rightArrow" class="text-xl"></fa-icon>
             </button>
           </div>
           <div class="alert alert-warning shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-                 viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2"/>
             </svg>
             <span>Um deinen Account noch weiter abzusichern solltest du eine 2 Faktor Authentifizierung einrichten!</span>
           </div>
@@ -71,10 +71,10 @@
       </div>
       <div *ngIf="user.emailVerified" class="flex justify-center w-full">
         <div class="alert alert-warning shadow-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-               viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"/>
           </svg>
           <span>Deine Email wurde scheinbar noch nicht verifiziert!</span>
         </div>

@@ -5,12 +5,12 @@
         <li *ngFor="let navEntry of navbarLinks">
           <a class="btn w-full {{isUrl(navEntry.url) ? 'btn-primary':'btn-ghost'}}"
              routerLink="{{navEntry.url}}">
-            <fa-icon class="text-xl" [icon]="navEntry.icon"></fa-icon>
+            <fa-icon [icon]="navEntry.icon" class="text-xl"></fa-icon>
           </a>
         </li>
         <li>
-          <a class="btn btn-ghost no-animation w-full" (click)="logoutUser()">
-            <fa-icon class="text-xl" [icon]="logout"></fa-icon>
+          <a (click)="logoutUser()" class="btn btn-ghost no-animation w-full">
+            <fa-icon [icon]="logout" class="text-xl"></fa-icon>
           </a>
         </li>
       </ul>
@@ -21,15 +21,15 @@
       <div class="w-full flex flex-row justify-between bg-base-200 rounded-xl shadow-lg p-2">
         <div class="flex justify-center items-center p-2">
           <div class="w-6" routerLink="/dashboard">
-            <img src="https://supportly.blob.core.windows.net/branding/logo-small.png" alt="">
+            <img alt="" src="https://supportly.blob.core.windows.net/branding/logo-small.png">
           </div>
         </div>
         <div *ngIf="(user$ | async) as user" class="flex justify-center items-center">
           <h1 class="text-2xl">Willkommen, {{user.firstName}} {{user.lastName}}</h1>
         </div>
         <div class="flex justify-center items-center pr-4">
-          <span class="btn btn-circle btn-ghost" (click)="switchModal()">
-            <fa-icon class="text-xl" [icon]="search"></fa-icon>
+          <span (click)="switchModal()" class="btn btn-circle btn-ghost">
+            <fa-icon [icon]="search" class="text-xl"></fa-icon>
           </span>
         </div>
       </div>
@@ -41,10 +41,10 @@
   <div [ngClass]="modalOpen ? 'modal-open' : ''" class="modal">
     <div class="modal-box flex flex-col gap-4">
       <div class="w-full flex justify-between gap-8">
-        <input [formControl]="searchInputField" class="input input-primary w-full"
-               placeholder="Suche nach einem Ticket..." (input)="searchTickets()"/>
+        <input (input)="searchTickets()" [formControl]="searchInputField"
+               class="input input-primary w-full" placeholder="Suche nach einem Ticket..."/>
 
-        <a class="btn btn-circle btn-ghost text-xl" (click)="switchModal()">
+        <a (click)="switchModal()" class="btn btn-circle btn-ghost text-xl">
           <fa-icon [icon]="close"></fa-icon>
         </a>
       </div>
@@ -56,7 +56,7 @@
               <h1 class="text-lg">{{searchTicket.identifier}}</h1>
               <h1 class="text-lg">{{searchTicket.title}}</h1>
             </div>
-            <a class="btn btn-sm btn-circle btn-ghost text-lg" (click)="switchModal()">
+            <a (click)="switchModal()" class="btn btn-sm btn-circle btn-ghost text-lg">
               <fa-icon [icon]="rightArrow"></fa-icon>
             </a>
           </div>

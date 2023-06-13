@@ -7,16 +7,16 @@
           <h1 class="text-sm">Statistik wei viele Tickets von dir gelöst wurden pro Monat</h1>
         </div>
         <div class="divider w-full"></div>
-        <apx-chart id="chartOne"
-                   [chart]="ticketsResolvedByUserPerMonthChart.chart"
+        <apx-chart [chart]="ticketsResolvedByUserPerMonthChart.chart"
                    [dataLabels]="ticketsResolvedByUserPerMonthChart.dataLabels"
+                   [fill]="ticketsResolvedByUserPerMonthChart.fill"
                    [grid]="ticketsResolvedByUserPerMonthChart.grid"
-                   [tooltip]="ticketsResolvedByUserPerMonthChart.tooltip"
                    [series]="ticketsResolvedByUserPerMonthChart.series"
                    [stroke]="ticketsResolvedByUserPerMonthChart.stroke"
+                   [tooltip]="ticketsResolvedByUserPerMonthChart.tooltip"
                    [xaxis]="ticketsResolvedByUserPerMonthChart.xaxis"
                    [yaxis]="ticketsResolvedByUserPerMonthChart.yaxis"
-                   [fill]="ticketsResolvedByUserPerMonthChart.fill">
+                   id="chartOne">
         </apx-chart>
       </div>
       <div class="w-full flex flex-row justify-between gap-6">
@@ -27,8 +27,8 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 class="text-3xl"
-                [ngClass]="rightColorForMinutes(statsResultModel.averageTimePerTicket)">{{parseToString(statsResultModel.averageTimePerTicket)}}</h1>
+            <h1 [ngClass]="rightColorForMinutes(statsResultModel.averageTimePerTicket)"
+                class="text-3xl">{{parseToString(statsResultModel.averageTimePerTicket)}}</h1>
           </div>
         </div>
         <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
@@ -38,8 +38,8 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 class="text-3xl"
-                [ngClass]="rightColorForNumbers(statsResultModel.yourTicketsOpen)">{{statsResultModel.yourTicketsOpen}}</h1>
+            <h1 [ngClass]="rightColorForNumbers(statsResultModel.yourTicketsOpen)"
+                class="text-3xl">{{statsResultModel.yourTicketsOpen}}</h1>
           </div>
         </div>
       </div>
@@ -53,8 +53,8 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 class="text-3xl"
-                [ngClass]="rightColorForNumbers(statsResultModel.customerAccounts)">{{statsResultModel.customerAccounts}}</h1>
+            <h1 [ngClass]="rightColorForNumbers(statsResultModel.customerAccounts)"
+                class="text-3xl">{{statsResultModel.customerAccounts}}</h1>
           </div>
         </div>
         <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
@@ -64,8 +64,8 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 class="text-3xl"
-                [ngClass]="rightColorForNumbers(statsResultModel.globalTicketsOpen)">{{statsResultModel.globalTicketsOpen}}</h1>
+            <h1 [ngClass]="rightColorForNumbers(statsResultModel.globalTicketsOpen)"
+                class="text-3xl">{{statsResultModel.globalTicketsOpen}}</h1>
           </div>
         </div>
       </div>
@@ -75,16 +75,16 @@
           <h1 class="text-sm">Statistik wei viele Tickets global gelöst wurden pro Monat</h1>
         </div>
         <div class="divider w-full"></div>
-        <apx-chart id="chartTwo"
-                   [chart]="ticketsResolvedGlobalPerMonthChart.chart"
+        <apx-chart [chart]="ticketsResolvedGlobalPerMonthChart.chart"
                    [dataLabels]="ticketsResolvedGlobalPerMonthChart.dataLabels"
-                   [tooltip]="ticketsResolvedGlobalPerMonthChart.tooltip"
+                   [fill]="ticketsResolvedGlobalPerMonthChart.fill"
                    [grid]="ticketsResolvedGlobalPerMonthChart.grid"
                    [series]="ticketsResolvedGlobalPerMonthChart.series"
                    [stroke]="ticketsResolvedGlobalPerMonthChart.stroke"
+                   [tooltip]="ticketsResolvedGlobalPerMonthChart.tooltip"
                    [xaxis]="ticketsResolvedGlobalPerMonthChart.xaxis"
                    [yaxis]="ticketsResolvedGlobalPerMonthChart.yaxis"
-                   [fill]="ticketsResolvedGlobalPerMonthChart.fill">
+                   id="chartTwo">
         </apx-chart>
       </div>
     </div>

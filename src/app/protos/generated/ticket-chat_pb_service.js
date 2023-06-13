@@ -6,7 +6,9 @@ var google_protobuf_empty_pb = require("google-protobuf/google/protobuf/empty_pb
 var grpc = require("@improbable-eng/grpc-web").grpc;
 
 var ChatService = (function () {
-  function ChatService() {}
+  function ChatService() {
+  }
+
   ChatService.serviceName = "beer.supportly.chat.ChatService";
   return ChatService;
 }());
@@ -64,10 +66,10 @@ ChatServiceClient.prototype.joinChatRoom = function joinChatRoom(requestMessage,
     },
     onEnd: function (status, statusMessage, trailers) {
       listeners.status.forEach(function (handler) {
-        handler({ code: status, details: statusMessage, metadata: trailers });
+        handler({code: status, details: statusMessage, metadata: trailers});
       });
       listeners.end.forEach(function (handler) {
-        handler({ code: status, details: statusMessage, metadata: trailers });
+        handler({code: status, details: statusMessage, metadata: trailers});
       });
       listeners = null;
     }

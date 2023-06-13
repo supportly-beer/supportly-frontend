@@ -113,6 +113,12 @@ export class TwofaComponent {
     }
   }
 
+  numberOnly(event: any): boolean {
+    const charCode = event.which ? event.which : event.keyCode
+
+    return !(charCode > 31 && (charCode < 48 || charCode > 57))
+  }
+
   private validate() {
     if (
       this.firstNumberInputField.invalid ||
@@ -126,11 +132,5 @@ export class TwofaComponent {
       this.numberErrorMessage = "Bitte überprüfe deine Eingabe!"
       return;
     }
-  }
-
-  numberOnly(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode
-
-    return !(charCode > 31 && (charCode < 48 || charCode > 57))
   }
 }

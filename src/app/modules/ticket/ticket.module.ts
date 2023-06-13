@@ -9,13 +9,13 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     TicketComponent
   ],
-    imports: [
-        CommonModule,
-        TicketRoutingModule,
-        FontAwesomeModule,
-        NgOptimizedImage,
-        FormsModule
-    ]
+  imports: [
+    CommonModule,
+    TicketRoutingModule,
+    FontAwesomeModule,
+    NgOptimizedImage,
+    FormsModule
+  ]
 })
 export class TicketModule {
 }
