@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {ChartOptions} from "../../../../types/chartOptions.type";
 import {AppState} from "../../../../store/appState.interface";
 import {select, Store} from "@ngrx/store";
@@ -13,7 +13,7 @@ import * as StatsActions from "../../../../store/stats/stats.actions";
   templateUrl: './dashboard.component.html',
   styleUrls: []
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   public ticketsResolvedByUserPerMonthChart: Partial<ChartOptions> | any;
   public ticketsResolvedGlobalPerMonthChart: Partial<ChartOptions> | any;
@@ -189,8 +189,10 @@ export class DashboardComponent {
     this.statsIsLoading$ = this.store.pipe(select(statsIsLoadingSelector));
     this.statsError$ = this.store.pipe(select(statsErrorSelector));
     this.statsResult$ = this.store.pipe(select(statsSelector));
+  }
 
-    store.dispatch(StatsActions.fetchStats({
+  ngOnInit() {
+    this.store.dispatch(StatsActions.fetchStats({
       start: 0,
       end: 9999999999999
     }))

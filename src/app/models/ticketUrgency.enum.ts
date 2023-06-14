@@ -1,4 +1,4 @@
-export enum TicketUrgency {
+export enum TicketUrgencyEnum {
   MINOR = "Minimal",
   NORMAL = "Normal",
   MAJOR = "Wichtig",

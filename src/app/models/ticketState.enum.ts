@@ -1,4 +1,4 @@
-export enum TicketState {
+export enum TicketStateEnum {
   OPEN = "Offen",
   ASSIGNED = "Zugewiesen",
   ON_HOLD = "Warten auf Antwort",

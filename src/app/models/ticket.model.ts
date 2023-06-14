@@ -1,6 +1,6 @@
 import {UserModel} from "./user.model";
-import {TicketState} from "./ticketState.enum";
-import {TicketUrgency} from "./ticketUrgency.enum";
+import {TicketStateEnum} from "./ticketState.enum";
+import {TicketUrgencyEnum} from "./ticketUrgency.enum";
 
 export class TicketModel {
   constructor(
@@ -12,8 +12,8 @@ export class TicketModel {
     public updatedAt: number,
     public creator: UserModel | null,
     public assignee: UserModel | null,
-    public state: TicketState,
-    public urgency: TicketUrgency
+    public state: TicketStateEnum,
+    public urgency: TicketUrgencyEnum
   ) {
   }
 }

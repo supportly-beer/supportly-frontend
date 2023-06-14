@@ -1,8 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {TicketModel} from "../../../../models/ticket.model";
-import {TicketState} from "../../../../models/ticketState.enum";
-import {TicketUrgency} from "../../../../models/ticketUrgency.enum";
-import {faker} from '@faker-js/faker';
 import {faFilter, faUser, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {UserModel} from "../../../../models/user.model";
 import {Observable} from "rxjs";
@@ -10,13 +7,20 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {select, Store} from "@ngrx/store";
 import {userErrorSelector, userIsLoadingSelector, userSelector} from "../../../../store/user/user.selectors";
 import {AppState} from "../../../../store/appState.interface";
+import * as TicketActions from "../../../../store/ticket/ticket.actions";
+import {
+  ticketErrorSelector,
+  ticketIsLoadingSelector,
+  ticketSelector,
+  ticketsSelector
+} from "../../../../store/ticket/ticket.selectors";
 
 @Component({
   selector: 'app-tickets',
   templateUrl: './tickets.component.html',
   styleUrls: []
 })
-export class TicketsComponent {
+export class TicketsComponent implements OnInit {
 
   filterIcon: IconDefinition = faFilter;
   assignedIcon: IconDefinition = faUser;
@@ -29,8 +33,13 @@ export class TicketsComponent {
   onlyShowMine: boolean = false;
 
   userIsLoading$: Observable<boolean>;
-  userError$: Observable<HttpErrorResponse | null>
-  user$: Observable<UserModel | null>
+  userError$: Observable<HttpErrorResponse | null>;
+  user$: Observable<UserModel | null>;
+
+  ticketIsLoading$: Observable<boolean>;
+  ticketError$: Observable<HttpErrorResponse | null>;
+  ticket$: Observable<TicketModel | null>;
+  tickets$: Observable<TicketModel[] | null>;
 
   constructor(
     private store: Store<AppState>
@@ -39,25 +48,42 @@ export class TicketsComponent {
     this.userError$ = this.store.pipe(select(userErrorSelector));
     this.user$ = this.store.pipe(select(userSelector));
 
-    this.generateRandomTickets()
+    this.ticketIsLoading$ = this.store.pipe(select(ticketIsLoadingSelector));
+    this.ticketError$ = this.store.pipe(select(ticketErrorSelector));
+    this.ticket$ = this.store.pipe(select(ticketSelector));
+    this.tickets$ = this.store.pipe(select(ticketsSelector));
 
     this.currentPage = 1;
     this.itemsPerPage = 8;
   }
 
+  ngOnInit() {
+    this.fetchAllTickets(0, 999999999);
+
+    this.tickets$.subscribe((tickets: TicketModel[] | null) => {
+      this.updateTable(tickets || [])
+    });
+  }
+
   getNextPage(): void {
     const totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-    if (this.currentPage < totalPages) this.currentPage++;
+    if (this.currentPage < totalPages) {
+      this.currentPage++;
+    }
   }
 
   getPreviousPage(): void {
-    if (this.currentPage > 1) this.currentPage--;
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 
   goToPage(page: number): void {
     const totalPages = this.getTotalPages();
 
-    if (page >= 1 && page <= totalPages) this.currentPage = page;
+    if (page >= 1 && page <= totalPages) {
+      this.currentPage = page;
+    }
   }
 
   getTotalPages(): number {
@@ -77,35 +103,32 @@ export class TicketsComponent {
     return this.tickets.slice(startIndex, endIndex);
   }
 
-  showAssignedToMe(user: UserModel) {
+  showAssignedToMe() {
     this.onlyShowMine = true
-    this.tickets = this.tickets.filter(ticket => ticket.assignee?.id === user.id);
-    this.totalItems = this.tickets.length;
+    this.fetchMyTickets(0, 999999999);
   }
 
   showAll() {
     this.onlyShowMine = false
-    this.generateRandomTickets()
+    this.fetchAllTickets(0, 999999999);
   }
 
-  generateRandomTickets() {
-    for (let i = 1; i <= 100; i++) {
-      const ticket = {
-        identifier: `TICKET-${i}`,
-        title: faker.lorem.sentence(5),
-        description: faker.lorem.paragraph(5),
-        createdAt: new Date('2023-06-10').getDate(),
-        closedAt: new Date('2023-06-10').getDate(),
-        updatedAt: new Date('2023-06-10').getDate(),
-        creator: null,
-        assignee: null,
-        state: TicketState.OPEN,
-        urgency: TicketUrgency.SHOW_STOPPER
-      };
+  fetchMyTickets(page: number, count: number) {
+    this.store.dispatch(TicketActions.fetchUserTickets({
+      page: page,
+      count: count
+    }))
+  }
 
-      this.tickets.push(ticket);
-    }
+  fetchAllTickets(page: number, count: number) {
+    this.store.dispatch(TicketActions.fetchAllTickets({
+      page: page,
+      count: count
+    }))
+  }
 
-    this.totalItems = this.tickets.length;
+  updateTable(tickets: TicketModel[]) {
+    this.tickets = tickets;
+    this.totalItems = tickets.length;
   }
 }
