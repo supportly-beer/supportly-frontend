@@ -1,8 +1,7 @@
 import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
-import {catchError, Observable, of, switchMap} from "rxjs";
+import {Observable, of} from "rxjs";
 import {AuthService} from "../services/auth.service";
-import {OperationSuccessModel} from "../models/operationSuccess.model";
 import {JwtUtils} from "../utils/jwt.utils";
 
 export const canActivate: CanActivateFn = (

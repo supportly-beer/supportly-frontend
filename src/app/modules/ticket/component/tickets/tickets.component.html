@@ -9,11 +9,11 @@
         <fa-icon [icon]="filterIcon"></fa-icon>
         Filter
       </a>
-      <a *ngIf="!onlyShowMine" class="btn btn-primary flex gap-2" (click)="showAssignedToMe(user)">
+      <a (click)="showAssignedToMe(user)" *ngIf="!onlyShowMine" class="btn btn-primary flex gap-2">
         <fa-icon [icon]="assignedIcon"></fa-icon>
         Meine anzeigen
       </a>
-      <a *ngIf="onlyShowMine" class="btn btn-primary flex gap-2" (click)="showAll()">
+      <a (click)="showAll()" *ngIf="onlyShowMine" class="btn btn-primary flex gap-2">
         <fa-icon [icon]="assignedIcon"></fa-icon>
         Alle anzeigen
       </a>
@@ -53,10 +53,10 @@
     </div>
     <div class="flex flex-row w-full items-center justify-center">
       <div class="join">
-        <a class="btn btn-active join-item w-12" (click)="getPreviousPage()"><</a>
+        <a (click)="getPreviousPage()" class="btn btn-active join-item w-12"><</a>
         <a (click)="goToPage(page)" *ngFor="let page of getAvailablePageNumbers()"
            [ngClass]="currentPage === page ? 'btn-primary' : ''" class="btn btn-active join-item w-12">{{ page }}</a>
-        <a class="btn btn-active join-item w-12" (click)="getNextPage()">></a>
+        <a (click)="getNextPage()" class="btn btn-active join-item w-12">></a>
       </div>
     </div>
   </div>

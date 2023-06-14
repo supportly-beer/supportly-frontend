@@ -3,14 +3,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {AuthService} from "../../../../services/auth.service";
 import {OperationSuccessModel} from "../../../../models/operationSuccess.model";
 import {Router} from "@angular/router";
-import {
-  faBookOpen,
-  faChampagneGlasses,
-  faCheck,
-  faRightToBracket,
-  faXmark,
-  IconDefinition
-} from "@fortawesome/free-solid-svg-icons";
+import {faBookOpen, faChampagneGlasses, faCheck, faXmark, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 import {faGithub, faInstagram, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
 @Component({

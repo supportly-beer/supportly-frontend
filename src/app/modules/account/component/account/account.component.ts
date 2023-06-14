@@ -5,13 +5,7 @@ import {UserModel} from "../../../../models/user.model";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../../store/appState.interface";
 import {userErrorSelector, userIsLoadingSelector, userSelector} from "../../../../store/user/user.selectors";
-import {
-  faArrowRight,
-  faFloppyDisk,
-  faRightToBracket,
-  faUpload,
-  IconDefinition
-} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faFloppyDisk, faUpload, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-account',
