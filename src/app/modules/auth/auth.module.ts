@@ -7,6 +7,7 @@ import {AuthRoutingModule} from "./auth-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ResetPasswordComponent} from "./component/reset-password/reset-password.component";
 import {ValidateEmailComponent} from "./component/validate-email/validate-email.component";
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {ValidateEmailComponent} from "./component/validate-email/validate-email.
     AuthRoutingModule,
     NgOptimizedImage,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FontAwesomeModule
   ]
 })
 export class AuthModule {

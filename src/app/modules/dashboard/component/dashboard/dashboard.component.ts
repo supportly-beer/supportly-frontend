@@ -212,7 +212,19 @@ export class DashboardComponent {
     return 'text-error';
   }
 
-  rightColorForNumbers(amount: number): string {
+  rightColorForNumbersLow(amount: number): string {
+    if (amount <= 10) {
+      return 'text-success';
+    }
+
+    if (amount <= 50) {
+      return 'text-warning';
+    }
+
+    return 'text-error';
+  }
+
+  rightColorForNumbersHigh(amount: number): string {
     if (amount <= 10) {
       return 'text-error';
     }

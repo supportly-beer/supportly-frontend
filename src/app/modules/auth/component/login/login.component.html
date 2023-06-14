@@ -28,7 +28,8 @@
     <div class="flex flex-col">
       <div class="flex flex-col gap-4">
         <div class="w-full flex flex-col gap-2">
-          <input (keydown.enter)="login()" [formControl]="emailInputField" class="w-full input" placeholder="Email Adresse"
+          <input (keydown.enter)="login()" [formControl]="emailInputField" class="w-full input"
+                 placeholder="Email Adresse"
                  required type="email"/>
           <div *ngIf="emailError" class="alert alert-error shadow-lg">
             <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -41,7 +42,8 @@
           </div>
         </div>
         <div class="w-full flex flex-col gap-2">
-          <input (keydown.enter)="login()" [formControl]="passwordInputField" class="w-full input" placeholder="Passwort"
+          <input (keydown.enter)="login()" [formControl]="passwordInputField" class="w-full input"
+                 placeholder="Passwort"
                  required type="password"/>
           <div *ngIf="passwordError" class="alert alert-error shadow-lg">
             <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -59,9 +61,27 @@
         </div>
       </div>
     </div>
-    <div class="w-full flex justify-center">
-      <a (click)="login()" [ngClass]="(loginIsLoading$ | async) ? 'loading' : ''"
-         class="btn btn-primary w-full">Einloggen</a>
+    <div class="w-full flex flex-col justify-center items-center">
+      <a (click)="login()" class="btn btn-primary w-full">
+        <span *ngIf="(loginIsLoading$ | async)" class="loading loading-infinity loading-md"></span>
+        <span *ngIf="!(loginIsLoading$ | async)" class="flex gap-2">
+          <fa-icon [icon]="loginIcon"></fa-icon>
+          Einloggen
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="absolute bottom-2">
+    <div class="w-full flex gap-6 items-center">
+      <a class="text-2xl" href="https://github.com/supportly-beer">
+        <fa-icon [icon]="githubIcon"></fa-icon>
+      </a>
+      <a class="text-2xl" href="#">
+        <fa-icon [icon]="linkedInIcon"></fa-icon>
+      </a>
+      <a class="text-2xl" href="#">
+        <fa-icon [icon]="instagramIcon"></fa-icon>
+      </a>
     </div>
   </div>
 </div>

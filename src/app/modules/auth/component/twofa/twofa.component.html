@@ -64,7 +64,10 @@
       </div>
     </div>
     <div class="w-full flex justify-center">
-      <a (click)="loginTwofa()" [ngClass]="(loginIsLoading$ | async) ? 'loading' : ''" class="btn btn-primary w-full">Weiter</a>
+      <a (click)="loginTwofa()" [ngClass]="(loginIsLoading$ | async) ? 'loading' : ''" class="btn btn-primary w-full flex gap-2">
+        <fa-icon [icon]="twofaIcon"></fa-icon>
+        Weiter
+      </a>
     </div>
   </div>
 </div>

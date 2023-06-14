@@ -1,5 +1,5 @@
 // package: beer.supportly.chat
-// file: ticket-chat.proto
+// file: tickets-chat.proto
 
 import * as jspb from "google-protobuf";
 

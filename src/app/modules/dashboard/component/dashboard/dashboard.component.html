@@ -38,7 +38,7 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 [ngClass]="rightColorForNumbers(statsResultModel.yourTicketsOpen)"
+            <h1 [ngClass]="rightColorForNumbersLow(statsResultModel.yourTicketsOpen)"
                 class="text-3xl">{{statsResultModel.yourTicketsOpen}}</h1>
           </div>
         </div>
@@ -53,7 +53,7 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 [ngClass]="rightColorForNumbers(statsResultModel.customerAccounts)"
+            <h1 [ngClass]="rightColorForNumbersHigh(statsResultModel.customerAccounts)"
                 class="text-3xl">{{statsResultModel.customerAccounts}}</h1>
           </div>
         </div>
@@ -64,7 +64,7 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 [ngClass]="rightColorForNumbers(statsResultModel.globalTicketsOpen)"
+            <h1 [ngClass]="rightColorForNumbersLow(statsResultModel.globalTicketsOpen)"
                 class="text-3xl">{{statsResultModel.globalTicketsOpen}}</h1>
           </div>
         </div>

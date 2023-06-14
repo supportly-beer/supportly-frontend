@@ -27,18 +27,12 @@ export const canActivate: CanActivateFn = (
     return of(false)
   }
 
-  return authService.validateToken(token).pipe(
-    switchMap((operationSuccessModel: OperationSuccessModel) => {
-      if (operationSuccessModel.successful) {
-        return of(true);
-      }
+  if (jwtUtils.isExpired()) {
+    router.navigate(["/auth/login"]).then()
+    console.log("expired")
+    return of(false)
+  }
 
-      router.navigate(["/auth/login"]).then()
-      return of(false);
-    }),
-    catchError(() => {
-      router.navigate(["/auth/login"]).then()
-      return of(false);
-    })
-  );
+  console.log("not expired")
+  return of(true)
 }

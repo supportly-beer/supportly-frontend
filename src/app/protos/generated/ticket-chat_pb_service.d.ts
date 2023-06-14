@@ -1,5 +1,5 @@
 // package: beer.supportly.chat
-// file: ticket-chat.proto
+// file: tickets-chat.proto
 
 import * as ticket_chat_pb from "./ticket-chat_pb";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";

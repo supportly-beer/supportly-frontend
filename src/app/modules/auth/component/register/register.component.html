@@ -112,19 +112,44 @@
       </div>
     </div>
     <div class="w-full flex justify-center">
-      <a (click)="startRegister()" [ngClass]="loading ? 'loading' : ''" class="btn btn-primary w-full">Registrieren</a>
+      <a (click)="startRegister()" [ngClass]="loading ? 'loading' : ''" class="btn btn-primary w-full flex gap-2">
+        <fa-icon [icon]="registerIcon"></fa-icon>
+        Registrieren
+      </a>
     </div>
   </div>
   <div [ngClass]="modalOpen ? 'modal-open' : ''" class="modal">
     <div class="modal-box">
-      <h3 class="font-bold text-lg">Allgemeine Geschäftsbedingungen</h3>
+      <h3 class="flex gap-4 font-bold text-lg">
+        <fa-icon [icon]="tosHeaderIcon"></fa-icon>
+        Allgemeine Geschäftsbedingungen
+      </h3>
       <p class="py-4">Hallo, vielen Dank dass Sie einen Account bei uns erstellen wollen! Allederings wir Sie vorher
         bitten unsere <a class="link">Allgemeinen Geschäftsbedingungen</a> zu bestätigen. Sie können nicht fortfahren
         ohne diese zu bestätigen!</p>
       <div class="modal-action">
-        <a (click)="switchModal()" class="btn btn-error">Ablehnen</a>
-        <a (click)="finishRegister()" class="btn btn-success">Annehmen</a>
+        <a (click)="switchModal()" class="btn btn-error flex gap-2 items-center">
+          <fa-icon [icon]="tosDeniedIcon"></fa-icon>
+          Ablehnen
+        </a>
+        <a (click)="finishRegister()" class="btn btn-success flex gap-2 items-center">
+          <fa-icon [icon]="tosAcceptedIcon"></fa-icon>
+          Annehmen
+        </a>
       </div>
+    </div>
+  </div>
+  <div class="absolute bottom-2">
+    <div class="w-full flex gap-6 items-center">
+      <a class="text-2xl" href="https://github.com/supportly-beer">
+        <fa-icon [icon]="githubIcon"></fa-icon>
+      </a>
+      <a class="text-2xl" href="#">
+        <fa-icon [icon]="linkedInIcon"></fa-icon>
+      </a>
+      <a class="text-2xl" href="#">
+        <fa-icon [icon]="instagramIcon"></fa-icon>
+      </a>
     </div>
   </div>
 </div>

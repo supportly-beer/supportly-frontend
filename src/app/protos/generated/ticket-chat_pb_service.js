@@ -1,5 +1,5 @@
 // package: beer.supportly.chat
-// file: ticket-chat.proto
+// file: tickets-chat.proto
 
 var ticket_chat_pb = require("./ticket-chat_pb");
 var google_protobuf_empty_pb = require("google-protobuf/google/protobuf/empty_pb");

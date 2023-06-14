@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {loginErrorSelector, loginIsLoadingSelector} from "../../../../store/login/login.selectors";
 import {Router} from "@angular/router";
+import {faRightToBracket, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-twofa',
@@ -14,6 +15,8 @@ import {Router} from "@angular/router";
   styleUrls: []
 })
 export class TwofaComponent {
+
+  twofaIcon: IconDefinition = faRightToBracket;
 
   requestError: boolean = false
   numberError: boolean = false

@@ -6,6 +6,8 @@ import * as LoginActions from "../../../../store/login/login.actions";
 import {AppState} from "../../../../store/appState.interface";
 import {select, Store} from "@ngrx/store";
 import {loginErrorSelector, loginIsLoadingSelector} from "../../../../store/login/login.selectors";
+import {faRightToBracket, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faGithub, faInstagram, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,11 @@ import {loginErrorSelector, loginIsLoadingSelector} from "../../../../store/logi
   styleUrls: []
 })
 export class LoginComponent {
+
+  loginIcon: IconDefinition = faRightToBracket;
+  githubIcon: IconDefinition = faGithub;
+  linkedInIcon: IconDefinition = faLinkedin;
+  instagramIcon: IconDefinition = faInstagram;
 
   requestError: boolean = false;
   emailError: boolean = false;

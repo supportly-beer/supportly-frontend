@@ -1,4 +1,4 @@
-// source: ticket-chat.proto
+// source: tickets-chat.proto
 /**
  * @fileoverview
  * @enhanceable

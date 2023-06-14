@@ -72,7 +72,7 @@ export class LayoutComponent {
   }
 
   isUrl(url: string): boolean {
-    return this.router.url == url
+    return this.router.url.split('/')[1] === url.split('/')[1];
   }
 
   logoutUser() {

@@ -1,4 +1,8 @@
+import {JwtHelperService} from "@auth0/angular-jwt";
+
 export class JwtUtils {
+
+  jwtHelperService = new JwtHelperService();
 
   constructor(
     public token: string
@@ -11,5 +15,9 @@ export class JwtUtils {
     } catch (error) {
       return undefined;
     }
+  }
+
+  isExpired(): boolean {
+    return this.jwtHelperService.isTokenExpired(this.token)
   }
 }
