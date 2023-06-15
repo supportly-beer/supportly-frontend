@@ -10,7 +10,7 @@ export class ChatService {
   private readonly chatServiceClient: ChatServiceClient
 
   constructor() {
-    this.chatServiceClient = new ChatServiceClient('http://localhost:9091')
+    this.chatServiceClient = new ChatServiceClient('http://jevzo.com:9090')
   }
 
   joinChatRoom(roomId: string, userId: number): ResponseStream<ChatMessage> {
