@@ -3,13 +3,12 @@ import {Observable} from "rxjs";
 import {TokenModel} from "../models/token.model";
 import {HttpClient} from "@angular/common/http";
 import {OperationSuccessModel} from "../models/operationSuccess.model";
+import {BACKEND_URL} from "../app.config";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  private apiUrl: string = "http://jevzo.com:8080"
 
   constructor(
     private httpClient: HttpClient
@@ -17,13 +16,13 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<TokenModel> {
-    return this.httpClient.post<TokenModel>(`${this.apiUrl}/auth/login`, {
+    return this.httpClient.post<TokenModel>(`${BACKEND_URL}/auth/login`, {
       email: email, password: password
     });
   }
 
   loginTwofa(email: string, code: string): Observable<TokenModel> {
-    return this.httpClient.post<TokenModel>(`${this.apiUrl}/auth/twofa`, {
+    return this.httpClient.post<TokenModel>(`${BACKEND_URL}/auth/twofa`, {
       email: email, token: code
     }, {
       headers: {"Authorization": "Bearer " + localStorage.getItem("twofaToken")}
@@ -31,7 +30,7 @@ export class AuthService {
   }
 
   register(email: string, firstName: string, lastName: string, password: string): Observable<OperationSuccessModel> {
-    return this.httpClient.post<OperationSuccessModel>(`${this.apiUrl}/auth/register`, {
+    return this.httpClient.post<OperationSuccessModel>(`${BACKEND_URL}/auth/register`, {
       email: email,
       firstName: firstName,
       lastName: lastName,
@@ -41,12 +40,12 @@ export class AuthService {
   }
 
   validateToken(token: string): Observable<OperationSuccessModel> {
-    return this.httpClient.get<OperationSuccessModel>(`${this.apiUrl}/auth/validate`, {
+    return this.httpClient.get<OperationSuccessModel>(`${BACKEND_URL}/auth/validate`, {
       headers: {"Authorization": "Bearer " + token}
     })
   }
 
   validateEmail(token: string, email: string): Observable<OperationSuccessModel> {
-    return this.httpClient.post<OperationSuccessModel>(`${this.apiUrl}/auth/validate-email?token=${token}&email=${email}`, {});
+    return this.httpClient.post<OperationSuccessModel>(`${BACKEND_URL}/auth/validate-email?token=${token}&email=${email}`, {});
   }
 }

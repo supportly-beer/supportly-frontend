@@ -1,8 +1,7 @@
 import {inject} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree} from "@angular/router";
-import {catchError, Observable, of, switchMap} from "rxjs";
+import {Observable, of} from "rxjs";
 import {AuthService} from "../services/auth.service";
-import {OperationSuccessModel} from "../models/operationSuccess.model";
 import {JwtUtils} from "../utils/jwt.utils";
 
 export const canActivate: CanActivateFn = (
@@ -27,18 +26,12 @@ export const canActivate: CanActivateFn = (
     return of(false)
   }
 
-  return authService.validateToken(token).pipe(
-    switchMap((operationSuccessModel: OperationSuccessModel) => {
-      if (operationSuccessModel.successful) {
-        return of(true);
-      }
+  if (jwtUtils.isExpired()) {
+    router.navigate(["/auth/login"]).then()
+    console.log("expired")
+    return of(false)
+  }
 
-      router.navigate(["/auth/login"]).then()
-      return of(false);
-    }),
-    catchError(() => {
-      router.navigate(["/auth/login"]).then()
-      return of(false);
-    })
-  );
+  console.log("not expired")
+  return of(true)
 }

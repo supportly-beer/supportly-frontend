@@ -6,15 +6,51 @@ import {catchError, map, mergeMap, of} from "rxjs";
 import * as UserActions from "./user/user.actions";
 import * as SearchActions from "./search/search.actions";
 import * as StatsActions from "./stats/stats.actions";
+import * as TicketActions from "./ticket/ticket.actions";
 import {Router} from "@angular/router";
 import {AppState} from "./appState.interface";
 import {Store} from "@ngrx/store";
 import {UserService} from "../services/user.service";
 import {SearchService} from "../services/search.service";
 import {StatsService} from "../services/stats.service";
+import {TicketService} from "../services/ticket.service";
 
 @Injectable()
 export class Effects {
+
+  $allTickets = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.fetchAllTickets),
+      mergeMap((action) => {
+        return this.ticketService.getAllTickets(action.page, action.count).pipe(
+          map(tickets => TicketActions.fetchTicketsSuccess({tickets})),
+          catchError(error => of(TicketActions.fetchTicketFailure({error})))
+        )
+      })
+    ))
+
+  $userTickets = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.fetchUserTickets),
+      mergeMap((action) => {
+        return this.ticketService.getUserTickets(action.page, action.count).pipe(
+          map(tickets => TicketActions.fetchTicketsSuccess({tickets})),
+          catchError(error => of(TicketActions.fetchTicketFailure({error})))
+        )
+      })
+    ))
+
+  $ticket = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.fetchTicket),
+      mergeMap((action) => {
+        return this.ticketService.getTicket(action.identifier).pipe(
+          map(ticket => TicketActions.fetchTicketSuccess({ticket})),
+          catchError(error => of(TicketActions.fetchTicketFailure({error})))
+        )
+      })
+    ))
+
   $stats = createEffect(() =>
     this.actions$.pipe(
       ofType(StatsActions.fetchStats),
@@ -123,6 +159,7 @@ export class Effects {
     private userService: UserService,
     private searchService: SearchService,
     private statsService: StatsService,
+    private ticketService: TicketService,
     private router: Router,
     private store: Store<AppState>
   ) {

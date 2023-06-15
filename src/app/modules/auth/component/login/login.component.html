@@ -1,63 +1,58 @@
 <div class="w-full h-full flex flex-col items-center justify-center gap-2">
   <div class="bg-base-200 w-1/3 rounded-xl shadow-lg flex flex-col p-4 gap-6">
     <div class="w-full flex justify-center">
-      <img alt="Logo image" class="w-2/3" height="296" src="https://supportly.blob.core.windows.net/branding/logo.png" width="774"/>
+      <img alt="Logo image" class="w-2/3" height="296" src="https://supportly.blob.core.windows.net/branding/logo.png"
+           width="774"/>
     </div>
     <div class="divider"></div>
     <div class="w-full">
       <div *ngIf="!requestError" class="alert bg-primary/25 shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>Willkommen auf der Supportly Webseite! Wir befinden uns derzeit in einer offenen Testphase. Bitte beachten Sie, dass das Produkt noch nicht fertig entwickelt ist.</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>Willkommen auf der Supportly Webseite! Wir befinden uns derzeit in einer offenen Testphase. Bitte beachten Sie, dass das Produkt noch nicht fertig entwickelt ist.</span>
       </div>
       <div *ngIf="requestError" class="alert alert-error shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>{{requestErrorMessage}}</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>{{requestErrorMessage}}</span>
       </div>
     </div>
     <div class="flex flex-col">
       <div class="flex flex-col gap-4">
         <div class="w-full flex flex-col gap-2">
-          <input [formControl]="emailInputField" class="w-full input" placeholder="Email Adresse" required
-                 type="email" (keydown.enter)="login()"/>
+          <input (keydown.enter)="login()" [formControl]="emailInputField" class="w-full input"
+                 placeholder="Email Adresse"
+                 required type="email"/>
           <div *ngIf="emailError" class="alert alert-error shadow-lg">
-            <div>
-              <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-                   xmlns="http://www.w3.org/2000/svg">
-                <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"></path>
-              </svg>
-              <span>{{emailErrorMessage}}</span>
-            </div>
+            <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"></path>
+            </svg>
+            <span>{{emailErrorMessage}}</span>
           </div>
         </div>
         <div class="w-full flex flex-col gap-2">
-          <input [formControl]="passwordInputField" class="w-full input" placeholder="Passwort" required
-                 type="password" (keydown.enter)="login()"/>
+          <input (keydown.enter)="login()" [formControl]="passwordInputField" class="w-full input"
+                 placeholder="Passwort"
+                 required type="password"/>
           <div *ngIf="passwordError" class="alert alert-error shadow-lg">
-            <div>
-              <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-                   xmlns="http://www.w3.org/2000/svg">
-                <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"></path>
-              </svg>
-              <span>{{passwordErrorMessage}}</span>
-            </div>
+            <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"></path>
+            </svg>
+            <span>{{passwordErrorMessage}}</span>
           </div>
         </div>
         <div class="flex flex-row justify-between">
@@ -66,9 +61,27 @@
         </div>
       </div>
     </div>
-    <div class="w-full flex justify-center">
-      <a (click)="login()" [ngClass]="(loginIsLoading$ | async) ? 'loading' : ''"
-         class="btn btn-primary w-full">Einloggen</a>
+    <div class="w-full flex flex-col justify-center items-center">
+      <a (click)="login()" class="btn btn-primary w-full">
+        <span *ngIf="(loginIsLoading$ | async)" class="loading loading-infinity loading-md"></span>
+        <span *ngIf="!(loginIsLoading$ | async)" class="flex gap-2">
+          <fa-icon [icon]="loginIcon"></fa-icon>
+          Einloggen
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="absolute bottom-2">
+    <div class="w-full flex gap-6 items-center">
+      <a class="text-2xl" href="https://github.com/supportly-beer">
+        <fa-icon [icon]="githubIcon"></fa-icon>
+      </a>
+      <a class="text-2xl" href="#">
+        <fa-icon [icon]="linkedInIcon"></fa-icon>
+      </a>
+      <a class="text-2xl" href="#">
+        <fa-icon [icon]="instagramIcon"></fa-icon>
+      </a>
     </div>
   </div>
 </div>

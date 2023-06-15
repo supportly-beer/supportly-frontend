@@ -5,7 +5,7 @@ import {UserModel} from "../../../../models/user.model";
 import {select, Store} from "@ngrx/store";
 import {AppState} from "../../../../store/appState.interface";
 import {userErrorSelector, userIsLoadingSelector, userSelector} from "../../../../store/user/user.selectors";
-import {faArrowRight, faUpload, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faFloppyDisk, faUpload, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-account',
@@ -18,6 +18,7 @@ export class AccountComponent {
   userError$: Observable<HttpErrorResponse | null>
   user$: Observable<UserModel | null>
 
+  saveIcon: IconDefinition = faFloppyDisk;
   upload: IconDefinition = faUpload
   rightArrow: IconDefinition = faArrowRight
 

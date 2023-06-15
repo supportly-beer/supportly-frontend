@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {loginErrorSelector, loginIsLoadingSelector} from "../../../../store/login/login.selectors";
 import {Router} from "@angular/router";
+import {faRightToBracket, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-twofa',
@@ -14,6 +15,8 @@ import {Router} from "@angular/router";
   styleUrls: []
 })
 export class TwofaComponent {
+
+  twofaIcon: IconDefinition = faRightToBracket;
 
   requestError: boolean = false
   numberError: boolean = false
@@ -113,6 +116,12 @@ export class TwofaComponent {
     }
   }
 
+  numberOnly(event: any): boolean {
+    const charCode = event.which ? event.which : event.keyCode
+
+    return !(charCode > 31 && (charCode < 48 || charCode > 57))
+  }
+
   private validate() {
     if (
       this.firstNumberInputField.invalid ||
@@ -126,11 +135,5 @@ export class TwofaComponent {
       this.numberErrorMessage = "Bitte überprüfe deine Eingabe!"
       return;
     }
-  }
-
-  numberOnly(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode
-
-    return !(charCode > 31 && (charCode < 48 || charCode > 57))
   }
 }

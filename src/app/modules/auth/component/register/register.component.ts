@@ -3,6 +3,8 @@ import {FormControl, Validators} from "@angular/forms";
 import {AuthService} from "../../../../services/auth.service";
 import {OperationSuccessModel} from "../../../../models/operationSuccess.model";
 import {Router} from "@angular/router";
+import {faBookOpen, faChampagneGlasses, faCheck, faXmark, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faGithub, faInstagram, faLinkedin} from "@fortawesome/free-brands-svg-icons";
 
 @Component({
   selector: 'app-register',
@@ -10,6 +12,14 @@ import {Router} from "@angular/router";
   styleUrls: []
 })
 export class RegisterComponent {
+
+  registerIcon: IconDefinition = faChampagneGlasses;
+  tosAcceptedIcon: IconDefinition = faCheck;
+  tosDeniedIcon: IconDefinition = faXmark;
+  tosHeaderIcon: IconDefinition = faBookOpen;
+  githubIcon: IconDefinition = faGithub;
+  linkedInIcon: IconDefinition = faLinkedin;
+  instagramIcon: IconDefinition = faInstagram;
 
   modalOpen: boolean = false
 

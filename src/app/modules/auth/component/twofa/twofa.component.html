@@ -1,77 +1,74 @@
 <div class="w-full h-full flex flex-col items-center justify-center gap-2">
   <div class="bg-base-200 w-1/4 rounded-xl shadow-lg flex flex-col p-4 gap-6">
     <div class="w-full flex justify-center">
-      <img alt="Logo image" class="w-2/3" height="296" src="https://supportly.blob.core.windows.net/branding/logo.png" width="774"/>
+      <img alt="Logo image" class="w-2/3" height="296" src="https://supportly.blob.core.windows.net/branding/logo.png"
+           width="774"/>
     </div>
     <div class="divider"></div>
     <div class="w-full">
       <div *ngIf="!requestError && !numberError" class="alert bg-primary/25 shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>Bitte gebe hier deinen 2fa Code aus deiner Authenticator App ein um fortzufahren!</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>Bitte gebe hier deinen 2fa Code aus deiner Authenticator App ein um fortzufahren!</span>
       </div>
       <div *ngIf="requestError && !numberError" class="alert alert-error shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>{{requestErrorMessage}}</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>{{requestErrorMessage}}</span>
       </div>
       <div *ngIf="numberError && !requestError" class="alert alert-error shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>{{numberErrorMessage}}</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>{{numberErrorMessage}}</span>
       </div>
       <div *ngIf="numberError && requestError" class="alert alert-error shadow-lg">
-        <div>
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>In deiner Eingabe befinden sich mehrere Fehlerhafte einträge!</span>
-        </div>
+        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"></path>
+        </svg>
+        <span>In deiner Eingabe befinden sich mehrere Fehlerhafte einträge!</span>
       </div>
     </div>
     <div class="w-full">
       <div class="flex flex-row w-full gap-6">
         <div class="w-1/2 flex flex-row gap-4">
-          <input [formControl]="firstNumberInputField" class="input w-1/3 text-center text-xl" type="text"
-                 (keydown.enter)="loginTwofa()" (keydown)="numberOnly($event)" maxlength="1"/>
-          <input [formControl]="secondNumberInputField" class="input w-1/3 text-center text-xl" type="text"
-                 (keydown.enter)="loginTwofa()" (keydown)="numberOnly($event)" maxlength="1"/>
-          <input [formControl]="thirdNumberInputField" class="input w-1/3 text-center text-xl" type="text"
-                 (keydown.enter)="loginTwofa()" (keydown)="numberOnly($event)" maxlength="1"/>
+          <input (keydown)="numberOnly($event)" (keydown.enter)="loginTwofa()" [formControl]="firstNumberInputField"
+                 class="input w-1/3 text-center text-xl" maxlength="1" type="text"/>
+          <input (keydown)="numberOnly($event)" (keydown.enter)="loginTwofa()" [formControl]="secondNumberInputField"
+                 class="input w-1/3 text-center text-xl" maxlength="1" type="text"/>
+          <input (keydown)="numberOnly($event)" (keydown.enter)="loginTwofa()" [formControl]="thirdNumberInputField"
+                 class="input w-1/3 text-center text-xl" maxlength="1" type="text"/>
         </div>
         <div class="w-1/2 flex flex-row gap-4">
-          <input [formControl]="fourthNumberInputField" class="input w-1/3 text-center text-xl" type="text"
-                 (keydown.enter)="loginTwofa()" (keydown)="numberOnly($event)" maxlength="1"/>
-          <input [formControl]="fifthNumberInputField" class="input w-1/3 text-center text-xl" type="text"
-                 (keydown.enter)="loginTwofa()" (keydown)="numberOnly($event)" maxlength="1"/>
-          <input [formControl]="sixthNumberInputField" class="input w-1/3 text-center text-xl" type="text"
-                 (keydown.enter)="loginTwofa()" (keydown)="numberOnly($event)" maxlength="1"/>
+          <input (keydown)="numberOnly($event)" (keydown.enter)="loginTwofa()" [formControl]="fourthNumberInputField"
+                 class="input w-1/3 text-center text-xl" maxlength="1" type="text"/>
+          <input (keydown)="numberOnly($event)" (keydown.enter)="loginTwofa()" [formControl]="fifthNumberInputField"
+                 class="input w-1/3 text-center text-xl" maxlength="1" type="text"/>
+          <input (keydown)="numberOnly($event)" (keydown.enter)="loginTwofa()" [formControl]="sixthNumberInputField"
+                 class="input w-1/3 text-center text-xl" maxlength="1" type="text"/>
         </div>
       </div>
     </div>
     <div class="w-full flex justify-center">
-      <a class="btn btn-primary w-full" [ngClass]="(loginIsLoading$ | async) ? 'loading' : ''" (click)="loginTwofa()">Weiter</a>
+      <a (click)="loginTwofa()" [ngClass]="(loginIsLoading$ | async) ? 'loading' : ''"
+         class="btn btn-primary w-full flex gap-2">
+        <fa-icon [icon]="twofaIcon"></fa-icon>
+        Weiter
+      </a>
     </div>
   </div>
 </div>

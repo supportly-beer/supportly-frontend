@@ -1,12 +1,22 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-ticket',
   templateUrl: './ticket.component.html',
   styleUrls: []
 })
-export class TicketComponent {
+export class TicketComponent implements OnInit {
 
-  constructor() {
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+  ) {
+  }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe(params => {
+
+    })
   }
 }

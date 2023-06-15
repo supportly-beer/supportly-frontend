@@ -19,6 +19,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
 import {searchReducer} from "./store/search/search.reducers";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {statsReducer} from "./store/stats/stats.reducers";
+import {ticketReducer} from "./store/ticket/ticket.reducers";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {statsReducer} from "./store/stats/stats.reducers";
       'user': userReducer,
       'login': loginReducer,
       'search': searchReducer,
-      'stats': statsReducer
+      'stats': statsReducer,
+      'ticket': ticketReducer,
     }),
     EffectsModule.forRoot([Effects]),
 
