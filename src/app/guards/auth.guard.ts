@@ -28,10 +28,8 @@ export const canActivate: CanActivateFn = (
 
   if (jwtUtils.isExpired()) {
     router.navigate(["/auth/login"]).then()
-    console.log("expired")
     return of(false)
   }
 
-  console.log("not expired")
   return of(true)
 }

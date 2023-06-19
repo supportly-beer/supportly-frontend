@@ -1,13 +1,13 @@
 <div class="flex flex-col w-full h-full">
-  <div *ngIf="(statsResult$ | async) as statsResultModel" class="flex flex-row gap-12">
+  <div class="flex flex-row gap-12">
     <div class="w-1/2 flex flex-col gap-6">
-      <div class="w-full bg-base-200 rounded-xl shadow-lg p-4" id="chartComponent">
+      <div class="w-full bg-base-200 rounded-xl shadow-lg p-4">
         <div class="flex flex-col w-full">
           <h1 class="text-2xl text-primary-content">Tickets gelöst</h1>
-          <h1 class="text-sm">Statistik wei viele Tickets von dir gelöst wurden pro Monat</h1>
+          <h1 class="text-sm">Statistik wie viele Tickets von dir gelöst wurden pro Monat</h1>
         </div>
         <div class="divider w-full"></div>
-        <apx-chart [chart]="ticketsResolvedByUserPerMonthChart.chart"
+        <apx-chart *ngIf="!(statsIsLoading$ | async)" [chart]="ticketsResolvedByUserPerMonthChart.chart"
                    [dataLabels]="ticketsResolvedByUserPerMonthChart.dataLabels"
                    [fill]="ticketsResolvedByUserPerMonthChart.fill"
                    [grid]="ticketsResolvedByUserPerMonthChart.grid"
@@ -15,9 +15,11 @@
                    [stroke]="ticketsResolvedByUserPerMonthChart.stroke"
                    [tooltip]="ticketsResolvedByUserPerMonthChart.tooltip"
                    [xaxis]="ticketsResolvedByUserPerMonthChart.xaxis"
-                   [yaxis]="ticketsResolvedByUserPerMonthChart.yaxis"
-                   id="chartOne">
+                   [yaxis]="ticketsResolvedByUserPerMonthChart.yaxis">
         </apx-chart>
+        <div *ngIf="(statsIsLoading$ | async)" class="w-full flex items-center justify-center h-60">
+          <span class="loading loading-ring loading-lg"></span>
+        </div>
       </div>
       <div class="w-full flex flex-row justify-between gap-6">
         <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
@@ -27,8 +29,10 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 [ngClass]="rightColorForMinutes(statsResultModel.averageTimePerTicket)"
+            <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
+                [ngClass]="rightColorForMinutes(statsResultModel.averageTimePerTicket)"
                 class="text-3xl">{{parseToString(statsResultModel.averageTimePerTicket)}}</h1>
+            <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
         </div>
         <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
@@ -38,8 +42,10 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 [ngClass]="rightColorForNumbersLow(statsResultModel.yourTicketsOpen)"
+            <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
+                [ngClass]="rightColorForNumbersLow(statsResultModel.yourTicketsOpen)"
                 class="text-3xl">{{statsResultModel.yourTicketsOpen}}</h1>
+            <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
         </div>
       </div>
@@ -53,8 +59,10 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 [ngClass]="rightColorForNumbersHigh(statsResultModel.customerAccounts)"
+            <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
+                [ngClass]="rightColorForNumbersHigh(statsResultModel.customerAccounts)"
                 class="text-3xl">{{statsResultModel.customerAccounts}}</h1>
+            <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
         </div>
         <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
@@ -64,8 +72,10 @@
           </div>
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
-            <h1 [ngClass]="rightColorForNumbersLow(statsResultModel.globalTicketsOpen)"
+            <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
+                [ngClass]="rightColorForNumbersLow(statsResultModel.globalTicketsOpen)"
                 class="text-3xl">{{statsResultModel.globalTicketsOpen}}</h1>
+            <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
         </div>
       </div>
@@ -75,7 +85,7 @@
           <h1 class="text-sm">Statistik wei viele Tickets global gelöst wurden pro Monat</h1>
         </div>
         <div class="divider w-full"></div>
-        <apx-chart [chart]="ticketsResolvedGlobalPerMonthChart.chart"
+        <apx-chart *ngIf="!(statsIsLoading$ | async)" [chart]="ticketsResolvedGlobalPerMonthChart.chart"
                    [dataLabels]="ticketsResolvedGlobalPerMonthChart.dataLabels"
                    [fill]="ticketsResolvedGlobalPerMonthChart.fill"
                    [grid]="ticketsResolvedGlobalPerMonthChart.grid"
@@ -83,9 +93,11 @@
                    [stroke]="ticketsResolvedGlobalPerMonthChart.stroke"
                    [tooltip]="ticketsResolvedGlobalPerMonthChart.tooltip"
                    [xaxis]="ticketsResolvedGlobalPerMonthChart.xaxis"
-                   [yaxis]="ticketsResolvedGlobalPerMonthChart.yaxis"
-                   id="chartTwo">
+                   [yaxis]="ticketsResolvedGlobalPerMonthChart.yaxis">
         </apx-chart>
+        <div *ngIf="(statsIsLoading$ | async)" class="w-full flex items-center justify-center h-60">
+          <span class="loading loading-ring loading-lg"></span>
+        </div>
       </div>
     </div>
   </div>

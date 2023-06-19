@@ -20,7 +20,7 @@ export const statsReducer = createReducer(
   })),
   on(StatsActions.fetchStatsSuccess, (state, action) => ({
     ...state,
-    isLoading: true,
+    isLoading: false,
     statsResult: action.statsResult
   })),
   on(StatsActions.fetchStatsFailure, (state, action) => ({

@@ -24,8 +24,14 @@
             <img alt="" src="https://supportly.blob.core.windows.net/branding/logo-small.png">
           </div>
         </div>
-        <div *ngIf="(user$ | async) as user" class="flex justify-center items-center">
+        <div
+          *ngIf="(user$ | async) as user"
+          class="flex justify-center items-center">
           <h1 class="text-2xl">Willkommen, {{user.firstName}} {{user.lastName}}</h1>
+        </div>
+        <div *ngIf="(userIsLoading$ | async)"
+             class="flex justify-center items-center">
+          <span class="loading loading-infinity loading-lg text-3xl"></span>
         </div>
         <div class="flex justify-center items-center pr-4">
           <span (click)="switchModal()" class="btn btn-circle btn-ghost">

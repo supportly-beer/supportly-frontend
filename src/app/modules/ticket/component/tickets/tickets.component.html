@@ -1,4 +1,4 @@
-<div *ngIf="(user$ | async) as user" class="w-full bg-base-200 rounded-xl shadow-lg p-4">
+<div class="w-full bg-base-200 rounded-xl shadow-lg p-4">
   <div class="flex flex-row w-full justify-between items-center">
     <div class="flex flex-col">
       <h1 class="text-2xl text-primary-content">Tickets</h1>
@@ -22,7 +22,7 @@
   <div class="divider w-full"></div>
   <div class="flex flex-col gap-12">
     <div class="w-full h-full">
-      <table class="table">
+      <table *ngIf="!(ticketIsLoading$ | async)" class="table">
         <thead>
         <tr>
           <th>Identifier</th>
@@ -37,19 +37,23 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let ticket of getDisplayedTickets()">
+        <tr class="hover:bg-primary transition-all ease-in-out" *ngFor="let ticket of getDisplayedTickets()"
+            (click)="openTicket(ticket.identifier)">
           <td>{{ ticket.identifier }}</td>
           <td>{{ ticket.title }}</td>
           <td>{{ ticket.createdAt | date }}</td>
           <td>{{ ticket.closedAt | date }}</td>
           <td>{{ ticket.updatedAt | date }}</td>
-          <td>{{ ticket.creator == null ? 'None' : ticket.creator.firstName }}</td>
-          <td>{{ ticket.assignee == null ? 'None' : ticket.assignee.firstName}}</td>
+          <td>{{ ticket.creator == null ? 'None' : ticket.creator.lastName }}</td>
+          <td>{{ ticket.assignee == null ? 'None' : ticket.assignee.lastName}}</td>
           <td>{{ ticket.state }}</td>
           <td>{{ ticket.urgency }}</td>
         </tr>
         </tbody>
       </table>
+      <div *ngIf="(ticketIsLoading$ | async)" class="w-full flex items-center justify-center h-72">
+        <span class="loading loading-ring loading-lg"></span>
+      </div>
     </div>
     <div class="flex flex-row w-full items-center justify-center">
       <div class="join">

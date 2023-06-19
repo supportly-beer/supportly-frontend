@@ -112,9 +112,12 @@
       </div>
     </div>
     <div class="w-full flex justify-center">
-      <a (click)="startRegister()" [ngClass]="loading ? 'loading' : ''" class="btn btn-primary w-full flex gap-2">
-        <fa-icon [icon]="registerIcon"></fa-icon>
-        Registrieren
+      <a (click)="startRegister()" class="btn btn-primary w-full">
+        <span *ngIf="loading" class="loading loading-infinity loading-md"></span>
+        <span *ngIf="!loading" class="flex gap-2">
+          <fa-icon [icon]="registerIcon"></fa-icon>
+          Registrieren
+        </span>
       </a>
     </div>
   </div>

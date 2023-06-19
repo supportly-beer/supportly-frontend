@@ -8,12 +8,9 @@ import {select, Store} from "@ngrx/store";
 import {userErrorSelector, userIsLoadingSelector, userSelector} from "../../../../store/user/user.selectors";
 import {AppState} from "../../../../store/appState.interface";
 import * as TicketActions from "../../../../store/ticket/ticket.actions";
-import {
-  ticketErrorSelector,
-  ticketIsLoadingSelector,
-  ticketSelector,
-  ticketsSelector
-} from "../../../../store/ticket/ticket.selectors";
+import {ticketErrorSelector, ticketIsLoadingSelector, ticketsSelector} from "../../../../store/ticket/ticket.selectors";
+import {Router} from "@angular/router";
+import {SortType} from "../../../../models/sortType.enum";
 
 @Component({
   selector: 'app-tickets',
@@ -38,11 +35,11 @@ export class TicketsComponent implements OnInit {
 
   ticketIsLoading$: Observable<boolean>;
   ticketError$: Observable<HttpErrorResponse | null>;
-  ticket$: Observable<TicketModel | null>;
   tickets$: Observable<TicketModel[] | null>;
 
   constructor(
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router
   ) {
     this.userIsLoading$ = this.store.pipe(select(userIsLoadingSelector));
     this.userError$ = this.store.pipe(select(userErrorSelector));
@@ -50,7 +47,6 @@ export class TicketsComponent implements OnInit {
 
     this.ticketIsLoading$ = this.store.pipe(select(ticketIsLoadingSelector));
     this.ticketError$ = this.store.pipe(select(ticketErrorSelector));
-    this.ticket$ = this.store.pipe(select(ticketSelector));
     this.tickets$ = this.store.pipe(select(ticketsSelector));
 
     this.currentPage = 1;
@@ -130,5 +126,27 @@ export class TicketsComponent implements OnInit {
   updateTable(tickets: TicketModel[]) {
     this.tickets = tickets;
     this.totalItems = tickets.length;
+  }
+
+  openTicket(identifier: string) {
+    this.router.navigate([`/ticket/${identifier}`]).then()
+  }
+
+  sortByCreated(sortType: SortType) {
+    switch (sortType) {
+
+    }
+  }
+
+  sortByUpdated(sortType: SortType) {
+    switch (sortType) {
+
+    }
+  }
+
+  sortByClosed(sortType: SortType) {
+    switch (sortType) {
+
+    }
   }
 }
