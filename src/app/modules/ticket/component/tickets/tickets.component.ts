@@ -1,6 +1,15 @@
 import {Component, OnInit} from "@angular/core";
 import {TicketModel} from "../../../../models/ticket.model";
-import {faFilter, faUser, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {
+  faAnglesLeft,
+  faAnglesRight,
+  faPaperPlane,
+  faPencil,
+  faSave,
+  faUser,
+  faXmark,
+  IconDefinition
+} from "@fortawesome/free-solid-svg-icons";
 import {UserModel} from "../../../../models/user.model";
 import {Observable} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -10,7 +19,7 @@ import {AppState} from "../../../../store/appState.interface";
 import * as TicketActions from "../../../../store/ticket/ticket.actions";
 import {ticketErrorSelector, ticketIsLoadingSelector, ticketsSelector} from "../../../../store/ticket/ticket.selectors";
 import {Router} from "@angular/router";
-import {SortType} from "../../../../models/sortType.enum";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-tickets',
@@ -19,8 +28,13 @@ import {SortType} from "../../../../models/sortType.enum";
 })
 export class TicketsComponent implements OnInit {
 
-  filterIcon: IconDefinition = faFilter;
   assignedIcon: IconDefinition = faUser;
+  createIcon: IconDefinition = faPencil;
+  paperPlaneIcon: IconDefinition = faPaperPlane;
+  nextIcon: IconDefinition = faAnglesRight;
+  prevIcon: IconDefinition = faAnglesLeft;
+  closeIcon: IconDefinition = faXmark;
+  saveIcon: IconDefinition = faSave;
 
   tickets: TicketModel[] = [];
   currentPage: number;
@@ -36,6 +50,27 @@ export class TicketsComponent implements OnInit {
   ticketIsLoading$: Observable<boolean>;
   ticketError$: Observable<HttpErrorResponse | null>;
   tickets$: Observable<TicketModel[] | null>;
+
+  modalOpen: boolean = false;
+
+  titleInputField: FormControl = new FormControl('', {
+    validators: [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(50)
+    ]
+  });
+
+  descriptionInputField: FormControl = new FormControl('', {
+    validators: [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(5000)
+    ]
+  });
+
+  createTicketHasError: boolean = false;
+  createTicketError: string | null = null;
 
   constructor(
     private store: Store<AppState>,
@@ -54,11 +89,21 @@ export class TicketsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchAllTickets(0, 999999999);
+    this.user$.subscribe(user => {
+      if (!user) {
+        return
+      }
 
-    this.tickets$.subscribe((tickets: TicketModel[] | null) => {
-      this.updateTable(this.sortTicketsByCreatedAt(tickets) || [])
-    });
+      if (user.role.name == "ROLE_USER") {
+        this.fetchMyTickets(0, 999999999);
+      } else {
+        this.fetchAllTickets(0, 999999999);
+      }
+
+      this.tickets$.subscribe((tickets: TicketModel[] | null) => {
+        this.updateTable(this.sortTicketsByCreatedAt(tickets) || [])
+      });
+    })
   }
 
   getNextPage(): void {
@@ -140,5 +185,36 @@ export class TicketsComponent implements OnInit {
     const copiedTickets = [...tickets];
 
     return copiedTickets.sort((a, b) => b.createdAt - a.createdAt);
+  }
+
+  createTicket() {
+    if (!this.titleInputField.valid) {
+      this.createTicketHasError = true;
+      this.createTicketError = "Der Titel muss zwischen 5 und 50 Zeichen lang sein";
+      return;
+    }
+
+    if (!this.descriptionInputField.valid) {
+      this.createTicketHasError = true;
+      this.createTicketError = "Der Inhalt muss zwischen 10 und 5000 Zeichen lang sein";
+      return;
+    }
+
+    this.createTicketHasError = false;
+    this.createTicketError = null;
+
+    this.store.dispatch(TicketActions.createTicket({
+      title: this.titleInputField.value,
+      description: this.descriptionInputField.value
+    }))
+
+    this.modalOpen = false;
+
+    this.titleInputField.reset();
+    this.descriptionInputField.reset();
+  }
+
+  switchModal() {
+    this.modalOpen = !this.modalOpen;
   }
 }

@@ -121,7 +121,7 @@
       </a>
     </div>
   </div>
-  <div [ngClass]="modalOpen ? 'modal-open' : ''" class="modal">
+  <div [class.modal-open]="modalOpen" class="modal">
     <div class="modal-box">
       <h3 class="flex gap-4 font-bold text-lg">
         <fa-icon [icon]="tosHeaderIcon"></fa-icon>

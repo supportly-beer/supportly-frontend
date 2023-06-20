@@ -7,6 +7,9 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {StatsResultModel} from "../../../../models/statsResult.model";
 import {statsErrorSelector, statsIsLoadingSelector, statsSelector} from "../../../../store/stats/stats.selectors";
 import * as StatsActions from "../../../../store/stats/stats.actions";
+import {UserModel} from "../../../../models/user.model";
+import {userErrorSelector, userIsLoadingSelector, userSelector} from "../../../../store/user/user.selectors";
+import {faGlobe, faLineChart, faUser, faUserClock, faUsers, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,9 +21,19 @@ export class DashboardComponent implements OnInit {
   public ticketsResolvedByUserPerMonthChart: Partial<ChartOptions> | any;
   public ticketsResolvedGlobalPerMonthChart: Partial<ChartOptions> | any;
 
+  userIsLoading$: Observable<boolean>;
+  userError$: Observable<HttpErrorResponse | null>
+  user$: Observable<UserModel | null>
+
   statsIsLoading$: Observable<boolean>;
   statsError$: Observable<HttpErrorResponse | null>
   statsResult$: Observable<StatsResultModel | null>
+
+  usersIcon: IconDefinition = faUsers
+  clockIcon: IconDefinition = faUserClock
+  globeIcon: IconDefinition = faGlobe
+  userIcon: IconDefinition = faUser
+  chartIcon: IconDefinition = faLineChart
 
   constructor(
     private store: Store<AppState>
@@ -186,6 +199,10 @@ export class DashboardComponent implements OnInit {
       },
     };
 
+    this.userIsLoading$ = this.store.pipe(select(userIsLoadingSelector));
+    this.userError$ = this.store.pipe(select(userErrorSelector));
+    this.user$ = this.store.pipe(select(userSelector));
+
     this.statsIsLoading$ = this.store.pipe(select(statsIsLoadingSelector));
     this.statsError$ = this.store.pipe(select(statsErrorSelector));
     this.statsResult$ = this.store.pipe(select(statsSelector));
@@ -196,46 +213,6 @@ export class DashboardComponent implements OnInit {
       start: 0,
       end: 9999999999999
     }))
-  }
-
-  rightColorForMinutes(amount: number): string {
-    if (amount == -1) {
-      return 'text-error';
-    }
-
-    if (amount <= 10) {
-      return 'text-success';
-    }
-
-    if (amount <= 50) {
-      return 'text-warning';
-    }
-
-    return 'text-error';
-  }
-
-  rightColorForNumbersLow(amount: number): string {
-    if (amount <= 10) {
-      return 'text-success';
-    }
-
-    if (amount <= 50) {
-      return 'text-warning';
-    }
-
-    return 'text-error';
-  }
-
-  rightColorForNumbersHigh(amount: number): string {
-    if (amount <= 10) {
-      return 'text-error';
-    }
-
-    if (amount <= 50) {
-      return 'text-warning';
-    }
-
-    return 'text-success';
   }
 
   parseToMinutes(millis: number): number {

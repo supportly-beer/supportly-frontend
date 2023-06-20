@@ -3,7 +3,9 @@
     <div class="bg-base-200 rounded-xl shadow-lg p-2">
       <ul class="flex flex-col gap-4">
         <li *ngFor="let navEntry of navbarLinks">
-          <a class="btn w-full {{isUrl(navEntry.url) ? 'btn-primary':'btn-ghost'}}"
+          <a [class.btn-primary]="isUrl(navEntry.url)"
+             [class.btn-ghost]="!isUrl(navEntry.url)"
+             class="btn w-full"
              routerLink="{{navEntry.url}}">
             <fa-icon [icon]="navEntry.icon" class="text-xl"></fa-icon>
           </a>
@@ -27,7 +29,10 @@
         <div
           *ngIf="(user$ | async) as user"
           class="flex justify-center items-center">
-          <h1 class="text-2xl"><span class="font-bold">Willkommen</span>, {{user.firstName}} {{user.lastName}}</h1>
+          <h1 class="text-2xl"><span class="font-bold">
+            <fa-icon [icon]="waveIcon"></fa-icon>
+            Willkommen
+          </span>, {{user.firstName}} {{user.lastName}}</h1>
         </div>
         <div *ngIf="(userIsLoading$ | async)"
              class="flex justify-center items-center">
@@ -44,7 +49,7 @@
       </div>
     </div>
   </div>
-  <div [ngClass]="modalOpen ? 'modal-open' : ''" class="modal">
+  <div [class.modal-open]="modalOpen" class="modal">
     <div class="modal-box flex flex-col gap-4">
       <div class="w-full flex justify-between gap-8">
         <input (input)="searchTickets()" [formControl]="searchInputField"

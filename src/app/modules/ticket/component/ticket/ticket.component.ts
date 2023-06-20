@@ -13,7 +13,8 @@ import {TicketUrgencyEnum} from "../../../../models/ticketUrgency.enum";
 import {TicketStateEnum} from "../../../../models/ticketState.enum";
 import {ChatService} from "../../../../services/chat.service";
 import {ChatMessage} from "../../../../protos/generated/ticket-chat_pb";
-import {FormControl} from "@angular/forms";
+import {FormControl, Validators} from "@angular/forms";
+import {faPaperPlane, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-ticket',
@@ -31,10 +32,18 @@ export class TicketComponent implements OnInit {
   ticket$: Observable<TicketModel | null>;
 
   messages: ChatMessage[] = []
-  chatMessageInput: FormControl = new FormControl('');
+  chatMessageInput: FormControl = new FormControl('', {
+    validators: [
+      Validators.required
+    ]
+  });
 
   identifier!: string
   user!: UserModel
+  easterEggEnabled: boolean = false;
+  easterEggCounter: number = 0;
+
+  paperPlaneIcon: IconDefinition = faPaperPlane;
 
   constructor(
     private store: Store<AppState>,
@@ -69,11 +78,17 @@ export class TicketComponent implements OnInit {
         this.chatService.joinChatRoom(this.identifier, user!.id).on('data', (data: ChatMessage) => {
           this.messages.push(data)
         })
-      })
 
-      this.store.dispatch(TicketActions.fetchTicket({
-        identifier: this.identifier
-      }))
+        if (user.role.name == "ROLE_USER") {
+          this.store.dispatch(TicketActions.fetchMyTicket({
+            identifier: this.identifier
+          }))
+        } else {
+          this.store.dispatch(TicketActions.fetchTicket({
+            identifier: this.identifier
+          }))
+        }
+      })
     })
   }
 
@@ -91,7 +106,7 @@ export class TicketComponent implements OnInit {
   }
 
   sendMessage() {
-    if (this.chatMessageInput.value == "" || !this.identifier || !this.user) {
+    if (!this.chatMessageInput.valid || !this.identifier || !this.user) {
       return
     }
 
@@ -103,6 +118,8 @@ export class TicketComponent implements OnInit {
       this.chatMessageInput.value!,
       Date.now()
     )
+
+    this.chatMessageInput.reset()
   }
 
   wasSentByUser(senderId: number): boolean {
@@ -133,5 +150,18 @@ export class TicketComponent implements OnInit {
     this.store.dispatch(TicketActions.assignTicket({
       identifier: this.identifier,
     }))
+  }
+
+  countEasterEgg() {
+    this.easterEggCounter++;
+
+    if (this.easterEggCounter == 10) {
+      this.easterEggEnabled = true;
+    }
+
+    if (this.easterEggCounter == 15) {
+      this.easterEggEnabled = false;
+      this.easterEggCounter = 0;
+    }
   }
 }

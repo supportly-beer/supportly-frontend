@@ -1,17 +1,25 @@
 <div class="w-full bg-base-200 rounded-xl shadow-lg p-4">
   <div class="flex flex-row w-full justify-between items-center">
     <div class="flex flex-col">
-      <h1 class="text-2xl text-primary-content font-bold">Tickets</h1>
+      <h1 class="text-2xl text-primary-content font-bold flex gap-2">
+        <fa-icon class="text-md" [icon]="paperPlaneIcon"></fa-icon>
+        Tickets
+      </h1>
       <h1 class="text-sm">Hier befinden sich alle derzeitigen Tickets</h1>
     </div>
-    <div class="flex flex-row gap-4">
-      <a (click)="showAssignedToMe()" *ngIf="!onlyShowMine" class="btn btn-primary flex gap-2">
+    <div *ngIf="(user$ | async) as user" class="flex flex-row gap-4">
+      <a (click)="showAssignedToMe()" *ngIf="!onlyShowMine && user.role.name != 'ROLE_USER'"
+         class="btn btn-primary flex gap-2">
         <fa-icon [icon]="assignedIcon"></fa-icon>
         Meine anzeigen
       </a>
-      <a (click)="showAll()" *ngIf="onlyShowMine" class="btn btn-primary flex gap-2">
+      <a (click)="showAll()" *ngIf="onlyShowMine && user.role.name != 'ROLE_USER'" class="btn btn-primary flex gap-2">
         <fa-icon [icon]="assignedIcon"></fa-icon>
         Alle anzeigen
+      </a>
+      <a (click)="switchModal()" *ngIf="user.role.name == 'ROLE_USER'" class="btn btn-primary flex gap-2">
+        <fa-icon [icon]="createIcon"></fa-icon>
+        Ticket erstellen
       </a>
     </div>
   </div>
@@ -39,7 +47,7 @@
           <td>{{ ticket.title }}</td>
           <td>{{ ticket.createdAt | date }}</td>
           <td>{{ ticket.closedAt == -1 ? "Nicht geschlossen" : (ticket.closedAt | date) }}</td>
-          <td>{{ ticket.closedAt == -1 ? "Nicht verändert" : (ticket.closedAt | date) }}</td>
+          <td>{{ ticket.updatedAt == -1 ? "Nicht verändert" : (ticket.updatedAt | date) }}</td>
           <td>{{ ticket.creator == null ? 'Keiner' : ticket.creator.lastName }}</td>
           <td>{{ ticket.assignee == null ? 'Keiner' : ticket.assignee.lastName}}</td>
           <td>{{ ticket.state }}</td>
@@ -53,10 +61,46 @@
     </div>
     <div class="flex flex-row w-full items-center justify-center">
       <div class="join">
-        <a (click)="getPreviousPage()" class="btn btn-active join-item w-12"><</a>
+        <a (click)="getPreviousPage()" class="btn btn-active join-item w-12">
+          <fa-icon [icon]="prevIcon"></fa-icon>
+        </a>
         <a (click)="goToPage(page)" *ngFor="let page of getAvailablePageNumbers()"
-           [ngClass]="currentPage === page ? 'btn-primary' : ''" class="btn btn-active join-item w-12">{{ page }}</a>
-        <a (click)="getNextPage()" class="btn btn-active join-item w-12">></a>
+           [class.btn-primary]="currentPage === page" class="btn btn-active join-item w-12">{{ page }}</a>
+        <a (click)="getNextPage()" class="btn btn-active join-item w-12">
+          <fa-icon [icon]="nextIcon"></fa-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div [class.modal-open]="modalOpen" class="modal">
+    <div class="modal-box">
+      <h3 class="flex gap-2 font-bold text-lg">
+        <fa-icon class="text-md" [icon]="createIcon"></fa-icon>
+        Ticket erstellen
+      </h3>
+      <div class="flex flex-col p-2 gap-4">
+        <div *ngIf="createTicketHasError" class="alert alert-error shadow-lg">
+          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"></path>
+          </svg>
+          <span>{{createTicketError}}</span>
+        </div>
+        <input class="input input-primary w-full" placeholder="Titel des Tickets" [formControl]="titleInputField"/>
+        <textarea class="textarea textarea-primary w-full min-h-[14rem]"
+                  placeholder="Bitte beschreibe das Problem" [formControl]="descriptionInputField"></textarea>
+      </div>
+      <div class="modal-action">
+        <a (click)="switchModal()" class="btn btn-error flex gap-2 items-center">
+          <fa-icon [icon]="closeIcon"></fa-icon>
+          Abbrechen
+        </a>
+        <a (click)="createTicket()" class="btn btn-success flex gap-2 items-center">
+          <fa-icon [icon]="saveIcon"></fa-icon>
+          Erstellen
+        </a>
       </div>
     </div>
   </div>

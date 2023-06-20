@@ -5,9 +5,9 @@ import {UserModel} from "../../../models/user.model";
 import {
   faArrowRight,
   faClose,
-  faComments,
+  faComments, faHandPeace,
   faHouse,
-  faMagnifyingGlass,
+  faMagnifyingGlass, faPaperPlane,
   faQuestionCircle,
   faRightFromBracket,
   faUser,
@@ -39,13 +39,14 @@ export class LayoutComponent {
   searchResult$: Observable<SearchResultModel | null>
 
   dashboard: IconDefinition = faHouse
-  ticket: IconDefinition = faComments
+  ticket: IconDefinition = faPaperPlane
   account: IconDefinition = faUser
   faq: IconDefinition = faQuestionCircle
   logout: IconDefinition = faRightFromBracket
   search: IconDefinition = faMagnifyingGlass
   close: IconDefinition = faClose
   rightArrow: IconDefinition = faArrowRight
+  waveIcon: IconDefinition = faHandPeace
 
   modalOpen: boolean = false
 

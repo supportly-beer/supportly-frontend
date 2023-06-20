@@ -6,6 +6,7 @@ import {BACKEND_URL} from "../app.config";
 import {OperationSuccessModel} from "../models/operationSuccess.model";
 import {TicketUrgencyEnum} from "../models/ticketUrgency.enum";
 import {TicketStateEnum} from "../models/ticketState.enum";
+import {TicketCreatedModel} from "../models/ticketCreated.model";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,12 @@ export class TicketService {
 
   getTicket(identifier: string): Observable<TicketModel> {
     return this.httpClient.get<TicketModel>(`${BACKEND_URL}/ticket/${identifier}`, {
+      headers: {"Authorization": "Bearer " + localStorage.getItem("accessToken")}
+    });
+  }
+
+  getMyTicket(identifier: string): Observable<TicketModel> {
+    return this.httpClient.get<TicketModel>(`${BACKEND_URL}/ticket/my/${identifier}`, {
       headers: {"Authorization": "Bearer " + localStorage.getItem("accessToken")}
     });
   }
@@ -47,6 +54,15 @@ export class TicketService {
 
   assignTicket(identifier: string): Observable<OperationSuccessModel> {
     return this.httpClient.post<OperationSuccessModel>(`${BACKEND_URL}/ticket/${identifier}/assign`, {}, {
+      headers: {"Authorization": "Bearer " + localStorage.getItem("accessToken")}
+    });
+  }
+
+  createTicket(title: string, description: string) {
+    return this.httpClient.post<TicketCreatedModel>(`${BACKEND_URL}/ticket`, {
+      title: title,
+      description: description
+    }, {
       headers: {"Authorization": "Bearer " + localStorage.getItem("accessToken")}
     });
   }

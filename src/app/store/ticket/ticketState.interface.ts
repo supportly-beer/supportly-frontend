@@ -13,4 +13,6 @@ export interface TicketState {
   identifier: string | null;
   ticketState: TicketStateEnum | null;
   ticketUrgency: TicketUrgencyEnum | null;
+  title: string | null;
+  description: string | null;
 }

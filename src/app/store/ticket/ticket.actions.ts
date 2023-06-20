@@ -11,6 +11,7 @@ export const fetchTicketsSuccess = createAction("[Ticket] Fetch Tickets Success"
 }>());
 
 export const fetchTicket = createAction("[Ticket] Fetch Ticket", props<{ identifier: string }>());
+export const fetchMyTicket = createAction("[Ticket] Fetch My Ticket", props<{ identifier: string }>());
 export const fetchTicketSuccess = createAction("[Ticket] Fetch Ticket Success", props<{
   ticket: TicketModel | null,
 }>());
@@ -28,3 +29,8 @@ export const updateTicket = createAction("[Ticket] Update Ticket", props<{
 export const assignTicket = createAction("[Ticket] Assign Ticket", props<{
   identifier: string,
 }>());
+export const createTicket = createAction("[Ticket] Create Ticket", props<{
+  title: string,
+  description: string,
+}>());
+export const createTicketSuccess = createAction("[Ticket] Create Ticket Success");
