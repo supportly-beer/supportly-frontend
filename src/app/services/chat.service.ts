@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ChatServiceClient, ResponseStream} from "src/app/protos/generated/ticket-chat_pb_service";
 import {ChatMessage, JoinRoomRequest, LeaveRoomRequest} from "src/app/protos/generated/ticket-chat_pb";
+import {GRPC_URL} from "../app.config";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ChatService {
   private readonly chatServiceClient: ChatServiceClient
 
   constructor() {
-    this.chatServiceClient = new ChatServiceClient('http://localhost:9091')
+    this.chatServiceClient = new ChatServiceClient(GRPC_URL)
   }
 
   joinChatRoom(roomId: string, userId: number): ResponseStream<ChatMessage> {
