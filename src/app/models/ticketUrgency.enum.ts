@@ -3,5 +3,5 @@ export enum TicketUrgencyEnum {
   NORMAL = "Normal",
   MAJOR = "Wichtig",
   CRITICAL = "Kritisch",
-  SHOW_STOPPER = "System Ausfall"
+  SHOW_STOPPER = "Systemausfall"
 }

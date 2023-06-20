@@ -10,6 +10,8 @@ export const initialState: TicketState = {
   tickets: null,
   ticket: null,
   identifier: null,
+  ticketState: null,
+  ticketUrgency: null,
 }
 
 export const ticketReducer = createReducer(
@@ -45,5 +47,16 @@ export const ticketReducer = createReducer(
     ...state,
     isLoading: false,
     error: action.error
+  })),
+  on(TicketActions.updateTicket, (state, {identifier, ticketUrgency, ticketState}) => ({
+    ...state,
+    isLoading: true,
+    ticketUrgency: ticketUrgency ?? null,
+    ticketState: ticketState ?? null
+  })),
+  on(TicketActions.assignTicket, (state, {identifier}) => ({
+    ...state,
+    isLoading: true,
+    identifier: identifier
   })),
 )

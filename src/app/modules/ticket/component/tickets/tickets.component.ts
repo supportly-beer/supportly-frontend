@@ -50,14 +50,14 @@ export class TicketsComponent implements OnInit {
     this.tickets$ = this.store.pipe(select(ticketsSelector));
 
     this.currentPage = 1;
-    this.itemsPerPage = 8;
+    this.itemsPerPage = 10;
   }
 
   ngOnInit() {
     this.fetchAllTickets(0, 999999999);
 
     this.tickets$.subscribe((tickets: TicketModel[] | null) => {
-      this.updateTable(tickets || [])
+      this.updateTable(this.sortTicketsByCreatedAt(tickets) || [])
     });
   }
 
@@ -132,21 +132,13 @@ export class TicketsComponent implements OnInit {
     this.router.navigate([`/ticket/${identifier}`]).then()
   }
 
-  sortByCreated(sortType: SortType) {
-    switch (sortType) {
-
+  sortTicketsByCreatedAt(tickets: TicketModel[] | null): TicketModel[] {
+    if (!tickets) {
+      return []
     }
-  }
 
-  sortByUpdated(sortType: SortType) {
-    switch (sortType) {
+    const copiedTickets = [...tickets];
 
-    }
-  }
-
-  sortByClosed(sortType: SortType) {
-    switch (sortType) {
-
-    }
+    return copiedTickets.sort((a, b) => b.createdAt - a.createdAt);
   }
 }

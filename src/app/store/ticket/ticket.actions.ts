@@ -1,6 +1,8 @@
 import {createAction, props} from "@ngrx/store";
 import {TicketModel} from "../../models/ticket.model";
 import {HttpErrorResponse} from "@angular/common/http";
+import {TicketUrgencyEnum} from "../../models/ticketUrgency.enum";
+import {TicketStateEnum} from "../../models/ticketState.enum";
 
 export const fetchAllTickets = createAction("[Ticket] Fetch All Tickets", props<{ page: number, count: number }>());
 export const fetchUserTickets = createAction("[Ticket] Fetch User Tickets", props<{ page: number, count: number }>());
@@ -15,4 +17,14 @@ export const fetchTicketSuccess = createAction("[Ticket] Fetch Ticket Success", 
 
 export const fetchTicketFailure = createAction("[Ticket] Fetch Ticket / Tickets Error", props<{
   error: HttpErrorResponse | null
+}>());
+
+export const updateTicket = createAction("[Ticket] Update Ticket", props<{
+  identifier: string,
+  ticketUrgency: TicketUrgencyEnum | null,
+  ticketState: TicketStateEnum | null,
+}>());
+
+export const assignTicket = createAction("[Ticket] Assign Ticket", props<{
+  identifier: string,
 }>());

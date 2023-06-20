@@ -3,7 +3,7 @@ import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {TicketRoutingModule} from "./ticket-routing.module";
 import {TicketsComponent} from "./component/tickets/tickets.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TicketComponent} from './component/ticket/ticket.component';
 
 @NgModule({
@@ -11,13 +11,14 @@ import {TicketComponent} from './component/ticket/ticket.component';
     TicketsComponent,
     TicketComponent
   ],
-  imports: [
-    CommonModule,
-    TicketRoutingModule,
-    FontAwesomeModule,
-    NgOptimizedImage,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        TicketRoutingModule,
+        FontAwesomeModule,
+        NgOptimizedImage,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class TicketModule {
 }

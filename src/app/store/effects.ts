@@ -18,6 +18,28 @@ import {TicketService} from "../services/ticket.service";
 @Injectable()
 export class Effects {
 
+  $updateTicket = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.updateTicket),
+      mergeMap((action) => {
+        return this.ticketService.updateTicket(action.identifier, action.ticketUrgency, action.ticketState).pipe(
+          map(operationSuccess => TicketActions.fetchTicket({identifier: action.identifier})),
+          catchError(error => of(TicketActions.fetchTicketFailure({error})))
+        )
+      })
+    ))
+
+  $assignTicket = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TicketActions.assignTicket),
+      mergeMap((action) => {
+        return this.ticketService.assignTicket(action.identifier).pipe(
+          map(operationSuccess => TicketActions.fetchTicket({identifier: action.identifier})),
+          catchError(error => of(TicketActions.fetchTicketFailure({error})))
+        )
+      })
+    ))
+
   $allTickets = createEffect(() =>
     this.actions$.pipe(
       ofType(TicketActions.fetchAllTickets),

@@ -10,7 +10,7 @@ export class ChatService {
   private readonly chatServiceClient: ChatServiceClient
 
   constructor() {
-    this.chatServiceClient = new ChatServiceClient('http://jevzo.com:9090')
+    this.chatServiceClient = new ChatServiceClient('http://localhost:9091')
   }
 
   joinChatRoom(roomId: string, userId: number): ResponseStream<ChatMessage> {
@@ -22,20 +22,19 @@ export class ChatService {
     return this.chatServiceClient.joinChatRoom(joinRoomRequest)
   }
 
-  sendMessage(roomId: string, senderId: number, senderDisplayName: string, message: string, timestamp: number) {
+  sendMessage(roomId: string, senderId: number, senderDisplayName: string, profilePictureUrl: string, message: string, timestamp: number) {
     let chatMessage = new ChatMessage()
 
     chatMessage.setRoomid(roomId)
     chatMessage.setSenderid(senderId)
     chatMessage.setSenderdisplayname(senderDisplayName)
+    chatMessage.setSenderprofilepictureurl(profilePictureUrl)
     chatMessage.setMessage(message)
     chatMessage.setTimestamp(timestamp)
 
     this.chatServiceClient.sendMessage(chatMessage, (err, response) => {
       if (err) {
         console.log(err)
-      } else {
-        console.log(response)
       }
     })
   }

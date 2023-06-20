@@ -1,14 +1,10 @@
 <div class="w-full bg-base-200 rounded-xl shadow-lg p-4">
   <div class="flex flex-row w-full justify-between items-center">
     <div class="flex flex-col">
-      <h1 class="text-2xl text-primary-content">Tickets</h1>
+      <h1 class="text-2xl text-primary-content font-bold">Tickets</h1>
       <h1 class="text-sm">Hier befinden sich alle derzeitigen Tickets</h1>
     </div>
     <div class="flex flex-row gap-4">
-      <a class="btn btn-primary flex gap-2">
-        <fa-icon [icon]="filterIcon"></fa-icon>
-        Filter
-      </a>
       <a (click)="showAssignedToMe()" *ngIf="!onlyShowMine" class="btn btn-primary flex gap-2">
         <fa-icon [icon]="assignedIcon"></fa-icon>
         Meine anzeigen
@@ -20,20 +16,20 @@
     </div>
   </div>
   <div class="divider w-full"></div>
-  <div class="flex flex-col gap-12">
+  <div class="h-[38rem] flex flex-col gap-12">
     <div class="w-full h-full">
       <table *ngIf="!(ticketIsLoading$ | async)" class="table">
         <thead>
         <tr>
-          <th>Identifier</th>
-          <th>Title</th>
-          <th>Created At</th>
-          <th>Closed At</th>
-          <th>Updated At</th>
-          <th>Creator</th>
-          <th>Assignee</th>
-          <th>State</th>
-          <th>Urgency</th>
+          <th>Identifikation</th>
+          <th>Titel</th>
+          <th>Erstellt am</th>
+          <th>Geschlossen am</th>
+          <th>Verändert am</th>
+          <th>Erstellt von</th>
+          <th>Zugewiesen an</th>
+          <th>Status</th>
+          <th>Wichtigkeit</th>
         </tr>
         </thead>
         <tbody>
@@ -42,16 +38,16 @@
           <td>{{ ticket.identifier }}</td>
           <td>{{ ticket.title }}</td>
           <td>{{ ticket.createdAt | date }}</td>
-          <td>{{ ticket.closedAt | date }}</td>
-          <td>{{ ticket.updatedAt | date }}</td>
-          <td>{{ ticket.creator == null ? 'None' : ticket.creator.lastName }}</td>
-          <td>{{ ticket.assignee == null ? 'None' : ticket.assignee.lastName}}</td>
+          <td>{{ ticket.closedAt == -1 ? "Nicht geschlossen" : (ticket.closedAt | date) }}</td>
+          <td>{{ ticket.closedAt == -1 ? "Nicht verändert" : (ticket.closedAt | date) }}</td>
+          <td>{{ ticket.creator == null ? 'Keiner' : ticket.creator.lastName }}</td>
+          <td>{{ ticket.assignee == null ? 'Keiner' : ticket.assignee.lastName}}</td>
           <td>{{ ticket.state }}</td>
           <td>{{ ticket.urgency }}</td>
         </tr>
         </tbody>
       </table>
-      <div *ngIf="(ticketIsLoading$ | async)" class="w-full flex items-center justify-center h-72">
+      <div *ngIf="(ticketIsLoading$ | async)" class="w-full flex items-center justify-center h-full">
         <span class="loading loading-ring loading-lg"></span>
       </div>
     </div>

@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {TicketModel} from "../models/ticket.model";
 import {Observable} from "rxjs";
 import {BACKEND_URL} from "../app.config";
+import {OperationSuccessModel} from "../models/operationSuccess.model";
+import {TicketUrgencyEnum} from "../models/ticketUrgency.enum";
+import {TicketStateEnum} from "../models/ticketState.enum";
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +32,21 @@ export class TicketService {
 
   getUserTickets(page: number, count: number): Observable<TicketModel[]> {
     return this.httpClient.get<TicketModel[]>(`${BACKEND_URL}/ticket/my?start=${page}&limit=${count}`, {
+      headers: {"Authorization": "Bearer " + localStorage.getItem("accessToken")}
+    });
+  }
+
+  updateTicket(identifier: string, ticketUrgency: TicketUrgencyEnum | null, ticketState: TicketStateEnum | null): Observable<OperationSuccessModel> {
+    return this.httpClient.post<OperationSuccessModel>(`${BACKEND_URL}/ticket/${identifier}/update`, {
+      ticketUrgency: ticketUrgency ?? null,
+      ticketState: ticketState ?? null
+    }, {
+      headers: {"Authorization": "Bearer " + localStorage.getItem("accessToken")}
+    });
+  }
+
+  assignTicket(identifier: string): Observable<OperationSuccessModel> {
+    return this.httpClient.post<OperationSuccessModel>(`${BACKEND_URL}/ticket/${identifier}/assign`, {}, {
       headers: {"Authorization": "Bearer " + localStorage.getItem("accessToken")}
     });
   }
