@@ -3,9 +3,9 @@
     <div class="bg-base-200 rounded-xl shadow-lg p-2">
       <ul class="flex flex-col gap-4">
         <li *ngFor="let navEntry of navbarLinks">
-          <div class="tooltip tooltip-right" [attr.data-tip]="navEntry.fullName">
-            <a [class.btn-primary]="isUrl(navEntry.url)"
-               [class.btn-ghost]="!isUrl(navEntry.url)"
+          <div [attr.data-tip]="navEntry.fullName" class="tooltip tooltip-right">
+            <a [class.btn-ghost]="!isUrl(navEntry.url)"
+               [class.btn-primary]="isUrl(navEntry.url)"
                class="btn w-full"
                routerLink="{{navEntry.url}}">
               <fa-icon [icon]="navEntry.icon" class="text-xl"></fa-icon>
@@ -74,8 +74,8 @@
               <h1 class="text-lg">{{searchTicket.identifier}}</h1>
               <h1 class="text-lg">{{searchTicket.title}}</h1>
             </div>
-            <a (click)="switchModal()" class="btn btn-sm btn-circle btn-ghost text-lg"
-               [routerLink]="'/ticket/' + searchTicket.identifier">
+            <a (click)="switchModal()" [routerLink]="'/ticket/' + searchTicket.identifier"
+               class="btn btn-sm btn-circle btn-ghost text-lg">
               <fa-icon [icon]="rightArrow"></fa-icon>
             </a>
           </div>

@@ -1,10 +1,10 @@
 <div *ngIf="(user$ | async) as user" class="flex flex-col w-full h-full">
-  <div class="flex flex-row gap-12 pt-[2rem]" *ngIf="user.role.name != 'ROLE_USER'">
+  <div *ngIf="user.role.name != 'ROLE_USER'" class="flex flex-row gap-12 pt-[2rem]">
     <div class="w-1/2 flex flex-col gap-6">
       <div class="w-full bg-base-200 rounded-xl shadow-lg p-4">
         <div class="flex flex-col w-full">
           <h1 class="text-2xl font-bold flex gap-2">
-            <fa-icon class="text-md" [icon]="chartIcon"></fa-icon>
+            <fa-icon [icon]="chartIcon" class="text-md"></fa-icon>
             Tickets gelöst
           </h1>
           <h1 class="text-sm">Statistik wie viele Tickets von dir gelöst wurden pro Monat</h1>
@@ -28,7 +28,7 @@
         <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
           <div class="flex flex-col w-full">
             <h1 class="text-2xl font-bold flex gap-2">
-              <fa-icon class="text-md" [icon]="clockIcon"></fa-icon>
+              <fa-icon [icon]="clockIcon" class="text-md"></fa-icon>
               Zeit pro Ticket
             </h1>
             <h1 class="text-sm">Durchschnittliche Zeit pro Ticket</h1>
@@ -37,8 +37,8 @@
           <div class="flex w-full justify-center items-center">
             <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
                 [class.text-error]="parseToMinutes(statsResultModel.averageTimePerTicket) >= 60 || statsResultModel.averageTimePerTicket == -1"
-                [class.text-warning]="parseToMinutes(statsResultModel.averageTimePerTicket) <= 10 && statsResultModel.averageTimePerTicket != -1"
                 [class.text-success]="parseToMinutes(statsResultModel.averageTimePerTicket) < 10 && statsResultModel.averageTimePerTicket != -1"
+                [class.text-warning]="parseToMinutes(statsResultModel.averageTimePerTicket) <= 10 && statsResultModel.averageTimePerTicket != -1"
                 class="text-3xl">{{parseToString(statsResultModel.averageTimePerTicket)}}</h1>
             <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
@@ -46,7 +46,7 @@
         <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
           <div class="flex flex-col w-full">
             <h1 class="text-2xl font-bold flex gap-2">
-              <fa-icon class="text-md" [icon]="userIcon"></fa-icon>
+              <fa-icon [icon]="userIcon" class="text-md"></fa-icon>
               Deine Tickets
             </h1>
             <h1 class="text-sm">Derzeit offene Tickets von dir</h1>
@@ -55,8 +55,8 @@
           <div class="flex w-full justify-center items-center">
             <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
                 [class.text-error]="statsResultModel.yourTicketsOpen > 50"
-                [class.text-warning]="statsResultModel.yourTicketsOpen > 5"
                 [class.text-success]="statsResultModel.yourTicketsOpen <= 5"
+                [class.text-warning]="statsResultModel.yourTicketsOpen > 5"
                 class="text-3xl">{{statsResultModel.yourTicketsOpen}}</h1>
             <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
@@ -68,7 +68,7 @@
         <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
           <div class="flex flex-col w-full">
             <h1 class="text-2xl font-bold flex gap-2">
-              <fa-icon class="text-md" [icon]="usersIcon"></fa-icon>
+              <fa-icon [icon]="usersIcon" class="text-md"></fa-icon>
               Kundenaccounts
             </h1>
             <h1 class="text-sm">Insgesamte Kundenanzahl im System</h1>
@@ -77,8 +77,8 @@
           <div class="flex w-full justify-center items-center">
             <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
                 [class.text-error]="statsResultModel.customerAccounts < 10"
-                [class.text-warning]="statsResultModel.customerAccounts > 10"
                 [class.text-success]="statsResultModel.customerAccounts > 20"
+                [class.text-warning]="statsResultModel.customerAccounts > 10"
                 class="text-3xl">{{statsResultModel.customerAccounts}}</h1>
             <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
@@ -86,7 +86,7 @@
         <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
           <div class="flex flex-col w-full">
             <h1 class="text-2xl font-bold flex gap-2">
-              <fa-icon class="text-md" [icon]="globeIcon"></fa-icon>
+              <fa-icon [icon]="globeIcon" class="text-md"></fa-icon>
               Globale Tickets
             </h1>
             <h1 class="text-sm">Derzeit global offene Tickets</h1>
@@ -95,8 +95,8 @@
           <div class="flex w-full justify-center items-center">
             <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
                 [class.text-error]="statsResultModel.globalTicketsOpen > 50"
-                [class.text-warning]="statsResultModel.globalTicketsOpen > 5"
                 [class.text-success]="statsResultModel.globalTicketsOpen <= 5"
+                [class.text-warning]="statsResultModel.globalTicketsOpen > 5"
                 class="text-3xl">{{statsResultModel.globalTicketsOpen}}</h1>
             <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
@@ -105,7 +105,7 @@
       <div class="w-full bg-base-200 rounded-xl shadow-lg p-4">
         <div class="flex flex-col w-full">
           <h1 class="text-2xl font-bold flex gap-2">
-            <fa-icon class="text-md" [icon]="chartIcon"></fa-icon>
+            <fa-icon [icon]="chartIcon" class="text-md"></fa-icon>
             Tickets global gelöst
           </h1>
           <h1 class="text-sm">Statistik wei viele Tickets global gelöst wurden pro Monat</h1>

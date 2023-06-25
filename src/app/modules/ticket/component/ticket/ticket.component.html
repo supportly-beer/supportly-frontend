@@ -10,15 +10,15 @@
           <span class="font-bold">Beschreibung</span>
           {{ticket.description}}
         </h1>
-        <div *ngFor="let message of messages" class="chat"
-             [class.animate-spin]="easterEggEnabled"
+        <div *ngFor="let message of messages" [class.animate-spin]="easterEggEnabled"
              [class.chat-end]="wasSentByUser(message.getSenderid())"
-             [class.chat-start]="!wasSentByUser(message.getSenderid())">
+             [class.chat-start]="!wasSentByUser(message.getSenderid())"
+             class="chat">
           <div class="chat-image avatar">
             <div class="w-10 rounded-full">
               <img
-                src="{{wasSentByUser(message.getSenderid()) ? user.profilePictureUrl : message.getSenderprofilepictureurl()}}"
-                alt=""/>
+                alt=""
+                src="{{wasSentByUser(message.getSenderid()) ? user.profilePictureUrl : message.getSenderprofilepictureurl()}}"/>
             </div>
           </div>
           <div class="chat-header">
@@ -29,8 +29,8 @@
         </div>
       </div>
       <div class="w-full flex flex-row items-center justify-center gap-2">
-        <input class="input w-full h-full" placeholder="Schreibe deine Nachricht" [formControl]="chatMessageInput"/>
-        <a class="btn btn-primary h-full flex gap-2" (click)="sendMessage()">
+        <input [formControl]="chatMessageInput" class="input w-full h-full" placeholder="Schreibe deine Nachricht"/>
+        <a (click)="sendMessage()" class="btn btn-primary h-full flex gap-2">
           <fa-icon [icon]="paperPlaneIcon"></fa-icon>
           Senden</a>
       </div>
@@ -42,7 +42,7 @@
           {{ticket.identifier}}
         </h1>
         <h1 class="flex flex-col">
-          <span class="font-bold" (click)="countEasterEgg()">Erstellt von</span>
+          <span (click)="countEasterEgg()" class="font-bold">Erstellt von</span>
           {{ticket.creator?.firstName}} {{ticket.creator?.lastName}}
         </h1>
         <h1 class="flex flex-col">
@@ -53,7 +53,7 @@
           <span class="font-bold">Geschlossen am</span>
           {{ ticket.closedAt == -1 ? "Nicht geschlossen" : (ticket.closedAt | date) }}
         </h1>
-        <h1 class="flex flex-col" *ngIf="user.role.name == 'ROLE_USER'">
+        <h1 *ngIf="user.role.name == 'ROLE_USER'" class="flex flex-col">
           <span class="font-bold">Status</span>
           {{ticket.state}}
         </h1>
@@ -62,19 +62,19 @@
             <span class="font-bold">Zugewiesen an</span>
             {{ticket.assignee?.firstName ?? 'Nicht'}} {{ticket.assignee?.lastName ?? 'zugewiesen'}}
           </h1>
-          <div class="flex flex-row gap-2" *ngIf="user.role.name != 'ROLE_USER'">
-            <a class="btn btn-sm" (click)="assignMyself()">Mir zuweisen</a>
+          <div *ngIf="user.role.name != 'ROLE_USER'" class="flex flex-row gap-2">
+            <a (click)="assignMyself()" class="btn btn-sm">Mir zuweisen</a>
           </div>
         </div>
       </div>
-      <div class="flex flex-col gap-2" *ngIf="user.role.name != 'ROLE_USER'">
-        <select class="select w-full h-[2em]" (change)="changeState($event)">
+      <div *ngIf="user.role.name != 'ROLE_USER'" class="flex flex-col gap-2">
+        <select (change)="changeState($event)" class="select w-full h-[2em]">
           <option *ngFor="let ticketState of getTicketStates()"
                   [disabled]="ticketState == ticket.state" [selected]="ticketState == ticket.state">
             {{ticketState}}
           </option>
         </select>
-        <select class="select w-full h-[2em]" (change)="changeUrgency($event)">
+        <select (change)="changeUrgency($event)" class="select w-full h-[2em]">
           <option *ngFor="let ticketUrgency of getTicketUrgencies()"
                   [disabled]="ticketUrgency == ticket.urgency" [selected]="ticketUrgency == ticket.urgency">
             {{ticketUrgency}}

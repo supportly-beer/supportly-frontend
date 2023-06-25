@@ -9,12 +9,12 @@ import {ReactiveFormsModule} from "@angular/forms";
   declarations: [
     FaqComponent
   ],
-    imports: [
-        CommonModule,
-        FaqRoutingModule,
-        FontAwesomeModule,
-        ReactiveFormsModule
-    ]
+  imports: [
+    CommonModule,
+    FaqRoutingModule,
+    FontAwesomeModule,
+    ReactiveFormsModule
+  ]
 })
 export class FaqModule {
 }

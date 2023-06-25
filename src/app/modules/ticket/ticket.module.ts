@@ -11,14 +11,14 @@ import {TicketComponent} from './component/ticket/ticket.component';
     TicketsComponent,
     TicketComponent
   ],
-    imports: [
-        CommonModule,
-        TicketRoutingModule,
-        FontAwesomeModule,
-        NgOptimizedImage,
-        FormsModule,
-        ReactiveFormsModule
-    ]
+  imports: [
+    CommonModule,
+    TicketRoutingModule,
+    FontAwesomeModule,
+    NgOptimizedImage,
+    FormsModule,
+    ReactiveFormsModule
+  ]
 })
 export class TicketModule {
 }

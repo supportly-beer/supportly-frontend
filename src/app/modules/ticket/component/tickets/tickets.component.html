@@ -2,7 +2,7 @@
   <div class="flex flex-row w-full justify-between items-center">
     <div class="flex flex-col">
       <h1 class="text-2xl font-bold flex gap-2">
-        <fa-icon class="text-md" [icon]="paperPlaneIcon"></fa-icon>
+        <fa-icon [icon]="paperPlaneIcon" class="text-md"></fa-icon>
         Tickets
       </h1>
       <h1 class="text-sm">Hier befinden sich alle derzeitigen Tickets</h1>
@@ -41,8 +41,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="hover:bg-primary transition-all ease-in-out" *ngFor="let ticket of getDisplayedTickets()"
-            (click)="openTicket(ticket.identifier)">
+        <tr (click)="openTicket(ticket.identifier)" *ngFor="let ticket of getDisplayedTickets()"
+            class="hover:bg-primary transition-all ease-in-out">
           <td>{{ ticket.identifier }}</td>
           <td>{{ ticket.title }}</td>
           <td>{{ ticket.createdAt | date }}</td>
@@ -75,7 +75,7 @@
   <div [class.modal-open]="modalOpen" class="modal">
     <div class="modal-box">
       <h3 class="flex gap-2 font-bold text-lg">
-        <fa-icon class="text-md" [icon]="createIcon"></fa-icon>
+        <fa-icon [icon]="createIcon" class="text-md"></fa-icon>
         Ticket erstellen
       </h3>
       <div class="flex flex-col p-2 gap-4">
@@ -88,9 +88,9 @@
           </svg>
           <span>{{createTicketError}}</span>
         </div>
-        <input class="input input-primary w-full" placeholder="Titel des Tickets" [formControl]="titleInputField"/>
-        <textarea class="textarea textarea-primary w-full min-h-[14rem]"
-                  placeholder="Bitte beschreibe das Problem" [formControl]="descriptionInputField"></textarea>
+        <input [formControl]="titleInputField" class="input input-primary w-full" placeholder="Titel des Tickets"/>
+        <textarea [formControl]="descriptionInputField"
+                  class="textarea textarea-primary w-full min-h-[14rem]" placeholder="Bitte beschreibe das Problem"></textarea>
       </div>
       <div class="modal-action">
         <a (click)="switchModal()" class="btn btn-error flex gap-2 items-center">
