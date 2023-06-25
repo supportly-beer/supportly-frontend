@@ -3,17 +3,21 @@
     <div class="bg-base-200 rounded-xl shadow-lg p-2">
       <ul class="flex flex-col gap-4">
         <li *ngFor="let navEntry of navbarLinks">
-          <a [class.btn-primary]="isUrl(navEntry.url)"
-             [class.btn-ghost]="!isUrl(navEntry.url)"
-             class="btn w-full"
-             routerLink="{{navEntry.url}}">
-            <fa-icon [icon]="navEntry.icon" class="text-xl"></fa-icon>
-          </a>
+          <div class="tooltip tooltip-right" [attr.data-tip]="navEntry.fullName">
+            <a [class.btn-primary]="isUrl(navEntry.url)"
+               [class.btn-ghost]="!isUrl(navEntry.url)"
+               class="btn w-full"
+               routerLink="{{navEntry.url}}">
+              <fa-icon [icon]="navEntry.icon" class="text-xl"></fa-icon>
+            </a>
+          </div>
         </li>
         <li>
-          <a (click)="logoutUser()" class="btn btn-ghost no-animation w-full">
-            <fa-icon [icon]="logout" class="text-xl"></fa-icon>
-          </a>
+          <div class="tooltip tooltip-right" data-tip="Ausloggen">
+            <a (click)="logoutUser()" class="btn btn-ghost no-animation w-full">
+              <fa-icon [icon]="logout" class="text-xl"></fa-icon>
+            </a>
+          </div>
         </li>
       </ul>
     </div>
@@ -26,21 +30,24 @@
             <img alt="" src="https://supportly.blob.core.windows.net/branding/logo-small.png">
           </div>
         </div>
-        <div
-          *ngIf="(user$ | async) as user"
-          class="flex justify-center items-center">
-          <h1 class="text-2xl"><span class="font-bold">
+        <div *ngIf="!(userIsLoading$ | async)" class="flex justify-center items-center">
+          <div *ngIf="(user$ | async) as user">
+            <h1 class="text-2xl"><span class="font-bold">
             <fa-icon [icon]="waveIcon"></fa-icon>
             Willkommen
           </span>, {{user.firstName}} {{user.lastName}}</h1>
+          </div>
         </div>
         <div *ngIf="(userIsLoading$ | async)"
              class="flex justify-center items-center">
           <span class="loading loading-infinity loading-lg text-3xl"></span>
         </div>
-        <div class="flex justify-center items-center pr-4">
+        <div class="flex justify-center items-center">
           <span (click)="switchModal()" class="btn btn-circle btn-ghost">
             <fa-icon [icon]="search" class="text-xl"></fa-icon>
+          </span>
+          <span (click)="switchDarkLightMode()" class="btn btn-circle btn-ghost">
+            <fa-icon [icon]="whichIconToUse()" class="text-xl"></fa-icon>
           </span>
         </div>
       </div>
@@ -67,7 +74,8 @@
               <h1 class="text-lg">{{searchTicket.identifier}}</h1>
               <h1 class="text-lg">{{searchTicket.title}}</h1>
             </div>
-            <a (click)="switchModal()" class="btn btn-sm btn-circle btn-ghost text-lg">
+            <a (click)="switchModal()" class="btn btn-sm btn-circle btn-ghost text-lg"
+               [routerLink]="'/ticket/' + searchTicket.identifier">
               <fa-icon [icon]="rightArrow"></fa-icon>
             </a>
           </div>

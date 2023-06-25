@@ -5,11 +5,14 @@ import {UserModel} from "../../../models/user.model";
 import {
   faArrowRight,
   faClose,
-  faComments, faHandPeace,
+  faHandPeace,
   faHouse,
-  faMagnifyingGlass, faPaperPlane,
+  faMagnifyingGlass,
+  faMoon,
+  faPaperPlane,
   faQuestionCircle,
   faRightFromBracket,
+  faSun,
   faUser,
   IconDefinition
 } from "@fortawesome/free-solid-svg-icons";
@@ -47,14 +50,16 @@ export class LayoutComponent {
   close: IconDefinition = faClose
   rightArrow: IconDefinition = faArrowRight
   waveIcon: IconDefinition = faHandPeace
+  moonIcon: IconDefinition = faMoon
+  sunIcon: IconDefinition = faSun
 
   modalOpen: boolean = false
 
-  navbarLinks: { url: string, icon: IconDefinition }[] = [
-    {url: "/dashboard", icon: this.dashboard},
-    {url: "/ticket", icon: this.ticket},
-    {url: "/account", icon: this.account},
-    {url: "/faq", icon: this.faq}
+  navbarLinks: { url: string, icon: IconDefinition, fullName: string }[] = [
+    {url: "/dashboard", icon: this.dashboard, fullName: 'Dashboard'},
+    {url: "/ticket", icon: this.ticket, fullName: 'Tickets'},
+    {url: "/account", icon: this.account, fullName: 'Account'},
+    {url: "/faq", icon: this.faq, fullName: 'Oft gestellte Fragen'},
   ]
 
   searchInputField = new FormControl('');
@@ -89,5 +94,18 @@ export class LayoutComponent {
       query: this.searchInputField.value!,
       limit: 5
     }))
+  }
+
+  switchDarkLightMode() {
+    const theme = localStorage.getItem('theme');
+    const themeToUse = theme === 'dark' ? 'light' : 'dark';
+
+    document.querySelector('html')?.setAttribute('data-theme', themeToUse);
+    localStorage.setItem('theme', themeToUse);
+  }
+
+  whichIconToUse(): IconDefinition {
+    const theme = localStorage.getItem('theme');
+    return theme === 'dark' ? this.sunIcon : this.moonIcon;
   }
 }

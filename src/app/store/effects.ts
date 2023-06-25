@@ -18,6 +18,72 @@ import {TicketService} from "../services/ticket.service";
 @Injectable()
 export class Effects {
 
+  $updateRole = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.updateRole),
+      mergeMap((action) => {
+        return this.userService.updateRole(action.id, action.role).pipe(
+          map(operationSuccess => UserActions.getAllUsers({page: 0, count: 999999999})),
+          catchError(error => of(UserActions.userFailure({error})))
+        )
+      })
+    ))
+
+  $getAllUsers = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.getAllUsers),
+      mergeMap((action) => {
+        return this.userService.getAllUsers(action.page, action.count).pipe(
+          map(users => UserActions.getAllUsersSuccess({users})),
+          catchError(error => of(UserActions.userFailure({error})))
+        )
+      })
+    ))
+
+  $updateUser = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.updateUser),
+      mergeMap((action) => {
+        return this.userService.updateUser(action.firstName, action.lastName, action.password).pipe(
+          map(operationSuccess => UserActions.getUser()),
+          catchError(error => of(UserActions.userFailure({error})))
+        )
+      })
+    ))
+
+  $uploadAvatar = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.uploadAvatar),
+      mergeMap((action) => {
+        return this.userService.uploadAvatar(action.avatar).pipe(
+          map(operationSuccess => UserActions.getUser()),
+          catchError(error => of(UserActions.userFailure({error})))
+        )
+      })
+    ))
+
+  $enableTwofa = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.enableTwofa),
+      mergeMap((action) => {
+        return this.userService.enableTwofa().pipe(
+          map(twofaEnabledModel => UserActions.enableTwofaSuccess({qrCode: twofaEnabledModel.qrCode})),
+          catchError(error => of(UserActions.userFailure({error})))
+        )
+      })
+    ))
+
+  $disableTwofa = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.disableTwofa),
+      mergeMap((action) => {
+        return this.userService.disableTwofa().pipe(
+          map(operationSuccess => UserActions.getUser()),
+          catchError(error => of(UserActions.userFailure({error})))
+        )
+      })
+    ))
+
   $createTicket = createEffect(() =>
     this.actions$.pipe(
       ofType(TicketActions.createTicket),
@@ -196,7 +262,7 @@ export class Effects {
       mergeMap(() => {
         return this.userService.getUser().pipe(
           map(user => UserActions.getUserSuccess({user})),
-          catchError(error => of(UserActions.getUserFailure({error})))
+          catchError(error => of(UserActions.userFailure({error})))
         )
       })));
 

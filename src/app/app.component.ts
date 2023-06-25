@@ -30,6 +30,15 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    let theme = localStorage.getItem('theme');
+
+    if (!theme) {
+      localStorage.setItem('theme', 'dark');
+      theme = 'dark';
+    }
+
+    document.querySelector('html')?.setAttribute('data-theme', theme);
+
     if (!localStorage.getItem("accessToken") && !localStorage.getItem("refreshToken")) {
       return;
     }
@@ -38,7 +47,6 @@ export class AppComponent {
   }
 
   shouldShowSidebar(): boolean {
-    // check if any part of the url matches
     return !this.ignoredSidebarUrls.some(url => this.router.url.includes(url))
   }
 }

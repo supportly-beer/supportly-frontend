@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {loginErrorSelector, loginIsLoadingSelector} from "../../../../store/login/login.selectors";
 import {Router} from "@angular/router";
-import {faRightToBracket, IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import {faChampagneGlasses, faRightToBracket, IconDefinition} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-twofa',

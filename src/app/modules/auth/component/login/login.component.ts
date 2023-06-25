@@ -119,7 +119,7 @@ export class LoginComponent {
 
     if (this.passwordInputField.hasError("minlength")) {
       this.passwordError = true;
-      this.passwordErrorMessage = "Das Passwort hat nicht die nötige Länge!";
+      this.passwordErrorMessage = "Das Passwort hat nicht die nötige Länge! (min. 8 Zeichen)";
     } else {
       this.passwordError = true;
       this.passwordErrorMessage = "Das Passwort wird benötigt!";

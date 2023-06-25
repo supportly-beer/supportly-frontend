@@ -3,7 +3,7 @@
     <div class="w-1/2 flex flex-col gap-6">
       <div class="w-full bg-base-200 rounded-xl shadow-lg p-4">
         <div class="flex flex-col w-full">
-          <h1 class="text-2xl text-primary-content font-bold flex gap-2">
+          <h1 class="text-2xl font-bold flex gap-2">
             <fa-icon class="text-md" [icon]="chartIcon"></fa-icon>
             Tickets gelöst
           </h1>
@@ -27,7 +27,7 @@
       <div class="w-full flex flex-row justify-between gap-6">
         <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
           <div class="flex flex-col w-full">
-            <h1 class="text-2xl text-primary-content font-bold flex gap-2">
+            <h1 class="text-2xl font-bold flex gap-2">
               <fa-icon class="text-md" [icon]="clockIcon"></fa-icon>
               Zeit pro Ticket
             </h1>
@@ -36,16 +36,16 @@
           <div class="divider w-full"></div>
           <div class="flex w-full justify-center items-center">
             <h1 *ngIf="!(statsIsLoading$ | async) && (statsResult$ | async) as statsResultModel"
-                [class.text-error]="statsResultModel.averageTimePerTicket == -1 || statsResultModel.averageTimePerTicket > 50"
-                [class.text-warning]="statsResultModel.averageTimePerTicket <= 10"
-                [class.text-success]="statsResultModel.averageTimePerTicket < 10"
+                [class.text-error]="parseToMinutes(statsResultModel.averageTimePerTicket) >= 60 || statsResultModel.averageTimePerTicket == -1"
+                [class.text-warning]="parseToMinutes(statsResultModel.averageTimePerTicket) <= 10 && statsResultModel.averageTimePerTicket != -1"
+                [class.text-success]="parseToMinutes(statsResultModel.averageTimePerTicket) < 10 && statsResultModel.averageTimePerTicket != -1"
                 class="text-3xl">{{parseToString(statsResultModel.averageTimePerTicket)}}</h1>
             <span *ngIf="(statsIsLoading$ | async)" class="loading loading-ring loading-lg"></span>
           </div>
         </div>
         <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
           <div class="flex flex-col w-full">
-            <h1 class="text-2xl text-primary-content font-bold flex gap-2">
+            <h1 class="text-2xl font-bold flex gap-2">
               <fa-icon class="text-md" [icon]="userIcon"></fa-icon>
               Deine Tickets
             </h1>
@@ -67,7 +67,7 @@
       <div class="w-full flex flex-row justify-between gap-6">
         <div class="bg-base-200 rounded-xl shadow-lg w-full p-4">
           <div class="flex flex-col w-full">
-            <h1 class="text-2xl text-primary-content font-bold flex gap-2">
+            <h1 class="text-2xl font-bold flex gap-2">
               <fa-icon class="text-md" [icon]="usersIcon"></fa-icon>
               Kundenaccounts
             </h1>
@@ -85,7 +85,7 @@
         </div>
         <div class="bg-base-200 rounded-xl shadow-lg  w-full p-4">
           <div class="flex flex-col w-full">
-            <h1 class="text-2xl text-primary-content font-bold flex gap-2">
+            <h1 class="text-2xl font-bold flex gap-2">
               <fa-icon class="text-md" [icon]="globeIcon"></fa-icon>
               Globale Tickets
             </h1>
@@ -104,7 +104,7 @@
       </div>
       <div class="w-full bg-base-200 rounded-xl shadow-lg p-4">
         <div class="flex flex-col w-full">
-          <h1 class="text-2xl text-primary-content font-bold flex gap-2">
+          <h1 class="text-2xl font-bold flex gap-2">
             <fa-icon class="text-md" [icon]="chartIcon"></fa-icon>
             Tickets global gelöst
           </h1>

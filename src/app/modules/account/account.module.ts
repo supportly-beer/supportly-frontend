@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AccountRoutingModule} from "./account-routing.module";
 import {AccountComponent} from "./component/account/account.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -13,7 +13,8 @@ import {FormsModule} from "@angular/forms";
     CommonModule,
     AccountRoutingModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AccountModule {

@@ -1,90 +1,211 @@
 <div class="flex flex-col w-full h-full">
-  <div *ngIf="(user$ | async) as user" class="flex gap-12 w-full bg-base-200 rounded-xl shadow-lg p-12 justify-evenly">
-    <div class="flex items-center justify-center">
-      <div class="indicator">
-        <div class="indicator-item indicator-bottom">
-          <button class="btn btn-primary btn-circle text-primary-content">
-            <fa-icon [icon]="upload" class="text-xl"></fa-icon>
-          </button>
-        </div>
-        <div class="avatar">
-          <div class="w-48 rounded-full">
-            <img alt="Profile picture of the user" src="{{user.profilePictureUrl}}"/>
+  <div class="w-full bg-base-200 rounded-xl shadow-lg p-12 justify-evenly">
+    <div *ngIf="!(userIsLoading$ | async)" class="w-full flex flex-col gap-12">
+      <div *ngIf="(user$ | async) as user" class="w-full flex gap-12">
+        <div class="flex items-center justify-center">
+          <div class="indicator">
+            <div class="indicator-item indicator-bottom">
+              <label for="files" class="btn btn-primary btn-circle">
+                <fa-icon [icon]="upload" class="text-xl"></fa-icon>
+              </label>
+              <input id="files" class="hidden" type="file" (change)="handleFileInput($event)"
+                     accept="image/avif,image/jpg,image/png">
+            </div>
+            <div class="avatar">
+              <div class="w-48 rounded-full">
+                <img alt="Profile picture of the user" src="{{user.profilePictureUrl}}"/>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="w-full flex flex-col gap-12 justify-center">
-      <div *ngIf="!user.twofaEnabled" class="flex flex-col w-full gap-4">
-        <div class="indicator">
-          <div class="indicator-item indicator-bottom">
-            <button class="btn btn-primary btn-circle text-primary-content">
-              <fa-icon [icon]="rightArrow" class="text-xl"></fa-icon>
-            </button>
+        <div class="w-full flex flex-col gap-12 justify-center">
+          <div *ngIf="!user.twofaEnabled" class="flex flex-col w-full gap-4">
+            <div class="indicator">
+              <div class="indicator-item indicator-bottom">
+                <a class="btn btn-primary btn-circle" (click)="enableTwofa()">
+                  <fa-icon [icon]="rightArrow" class="text-xl"></fa-icon>
+                </a>
+              </div>
+              <div class="alert alert-warning shadow-lg">
+                <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    stroke-width="2"/>
+                </svg>
+                <span>Um deinen Account noch weiter abzusichern solltest du eine 2 Faktor Authentifizierung einrichten!</span>
+              </div>
+            </div>
           </div>
-          <div class="alert alert-warning shadow-lg">
-            <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+          <div class="flex flex-col w-full gap-16">
+            <div class="flex flex-col gap-4">
+              <div class="flex w-full gap-4">
+                <input class="input w-1/2" placeholder="{{user.firstName}}" type="text"
+                       [formControl]="firstNameInputField"/>
+                <input class="input w-1/2" placeholder="{{user.lastName}}" type="text"
+                       [formControl]="lastNameInputField"/>
+              </div>
+              <div class="flex w-full gap-4">
+                <input class="input w-1/2" placeholder="Passwort" type="password" [formControl]="passwordInputField"/>
+                <input class="input w-1/2" placeholder="Passwort wiederholen" type="password"
+                       [formControl]="repeatPasswordInputField"/>
+              </div>
+              <div *ngIf="validationError" class="alert alert-error shadow-lg">
+                <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"></path>
+                </svg>
+                <span>{{validationErrorMessage}}</span>
+              </div>
+            </div>
+            <div class="flex flex-col w-full gap-2">
+              <a class="btn btn-primary w-full" (click)="updateUser()">
+                <span *ngIf="(userIsLoading$ | async)" class="loading loading-infinity loading-md"></span>
+                <span *ngIf="!(userIsLoading$ | async)" class="flex gap-2">
+                  <fa-icon [icon]="saveIcon"></fa-icon>
+                  Speichern
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-6 items-center justify-center">
+          <div *ngIf="user.twofaEnabled">
+            <div class="alert bg-primary/25 shadow-lg">
+              <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"></path>
+              </svg>
+              <div class="flex flex-col gap-4">
+                <span>Deine 2 Faktor Authentifizierung ist schon aktiviert. Du kannst sie hier wieder deaktivieren, was wir allerdings nicht empfehlen würden!</span>
+                <a *ngIf="user.twofaEnabled" (click)="disableTwofa()" class="btn btn-sm btn-error w-full">
+                  <span *ngIf="(userIsLoading$ | async)" class="loading loading-infinity loading-md"></span>
+                  <span *ngIf="!(userIsLoading$ | async)" class="flex gap-2">
+              <fa-icon [icon]="trashIcon"></fa-icon>
+              2FA deaktivieren
+            </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="alert bg-primary/25 shadow-lg">
+            <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
                  xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2"/>
+              <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"></path>
             </svg>
-            <span>Um deinen Account noch weiter abzusichern solltest du eine 2 Faktor Authentifizierung einrichten!</span>
+            <span>Unser System ist derzeit noch in Entwicklung, weshalb Fehler auftreten können!</span>
+          </div>
+          <div *ngIf="!user.emailVerified" class="flex justify-center w-full">
+            <div class="alert alert-warning shadow-lg">
+              <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  stroke-width="2"/>
+              </svg>
+              <span>Deine Email wurde scheinbar noch nicht verifiziert!</span>
+            </div>
           </div>
         </div>
       </div>
-      <div class="flex flex-col w-full gap-16">
-        <div class="flex flex-col gap-4">
-          <div class="flex w-full gap-4">
-            <input class="input w-1/2" placeholder="{{user.firstName}}" type="text"/>
-            <input class="input w-1/2" placeholder="{{user.lastName}}" type="text"/>
+      <div class="w-full" *ngIf="(user$ | async) as user">
+        <div class="w-full flex flex-col" *ngIf="user.role.name == 'ROLE_ADMINISTRATOR'">
+          <div class="divider w-full"></div>
+          <div class="h-[38rem] flex flex-col gap-12">
+            <div class="w-full h-full">
+              <table *ngIf="!(userIsLoading$ | async)" class="table">
+                <thead>
+                <tr>
+                  <th>Profilbild</th>
+                  <th>ID</th>
+                  <th>Vorname</th>
+                  <th>Nachname</th>
+                  <th>Email</th>
+                  <th>2FA aktiviert</th>
+                  <th>Email verifiziert</th>
+                  <th>Rolle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let displayedUser of getDisplayedUsers()">
+                  <td>
+                    <div class="w-8">
+                      <img class="rounded-full" alt="Profile picture of the user"
+                           src="{{displayedUser.profilePictureUrl}}"/>
+                    </div>
+                  </td>
+                  <td>{{displayedUser.id}}</td>
+                  <td>{{displayedUser.firstName}}</td>
+                  <td>{{displayedUser.lastName}}</td>
+                  <td>{{displayedUser.email}}</td>
+                  <td>{{displayedUser.twofaEnabled ? 'Ja' : 'Nein'}}</td>
+                  <td>{{displayedUser.emailVerified ? 'Ja' : 'Nein'}}</td>
+                  <td>
+                    <select class="select w-full" (change)="changeState($event, displayedUser.id)"
+                            [disabled]="displayedUser.id == user.id">
+                      <option *ngFor="let userRole of getUserRoles()"
+                              [disabled]="userRole == displayedUser.role.name"
+                              [selected]="userRole == displayedUser.role.name">
+                        {{userRole}}
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div *ngIf="(userIsLoading$ | async)" class="w-full flex items-center justify-center h-full">
+                <span class="loading loading-ring loading-lg"></span>
+              </div>
+            </div>
+            <div class="flex flex-row w-full items-center justify-center">
+              <div class="join">
+                <a (click)="getPreviousPage()" class="btn btn-active join-item w-12">
+                  <fa-icon [icon]="prevIcon"></fa-icon>
+                </a>
+                <a (click)="goToPage(page)" *ngFor="let page of getAvailablePageNumbers()"
+                   [class.btn-primary]="currentPage === page" class="btn btn-active join-item w-12">{{ page }}</a>
+                <a (click)="getNextPage()" class="btn btn-active join-item w-12">
+                  <fa-icon [icon]="nextIcon"></fa-icon>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="flex w-full gap-4">
-            <input class="input w-1/2" placeholder="Passwort" type="password"/>
-            <input class="input w-1/2" placeholder="Passwort wiederholen" type="password"/>
-          </div>
-        </div>
-        <div class="flex w-full">
-          <a class="btn btn-primary w-full">
-            <fa-icon [icon]="saveIcon"></fa-icon>
-            Speichern
-          </a>
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-6 items-center justify-center">
-      <div *ngIf="user.twofaEnabled">
-        <div class="alert bg-primary/25 shadow-lg">
-          <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"></path>
-          </svg>
-          <span>Deine 2 Faktor Authentifizierung ist schon aktiviert. Du kannst sie hier wieder deaktivieren, was wir allerdings nicht empfehlen würden!</span>
+    <div *ngIf="(userIsLoading$ | async)" class="w-full h-full flex justify-center items-center">
+      <span class="loading loading-ring loading-lg"></span>
+    </div>
+  </div>
+  <div [class.modal-open]="qrCodeModalOpen" class="modal">
+    <div class="modal-box">
+      <h3 class="flex gap-2 font-bold text-lg">
+        <fa-icon class="text-md" [icon]="lockIcon"></fa-icon>
+        QrCode scannen
+      </h3>
+      <div class="flex flex-col w-full p-2 gap-4">
+        <div *ngIf="(userIsLoading$ | async)" class="w-full flex items-center justify-center">
+          <span class="loading loading-ring loading-lg"></span>
+        </div>
+        <div *ngIf="!(userIsLoading$ | async)" class="w-full">
+          <div *ngIf="(qrCode$ | async) as qrCode" class="w-full flex items-center justify-center">
+            <img alt="qrCode" [src]="buildImageString(qrCode)"/>
+          </div>
         </div>
       </div>
-      <div class="alert bg-primary/25 shadow-lg">
-        <svg class="stroke-current flex-shrink-0 w-6 h-6" fill="none" viewBox="0 0 24 24"
-             xmlns="http://www.w3.org/2000/svg">
-          <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"></path>
-        </svg>
-        <span>Unser System ist derzeit noch in Entwicklung, weshalb Fehler auftreten können!</span>
-      </div>
-      <div *ngIf="!user.emailVerified" class="flex justify-center w-full">
-        <div class="alert alert-warning shadow-lg">
-          <svg class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"
-               xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-              stroke-linecap="round" stroke-linejoin="round"
-              stroke-width="2"/>
-          </svg>
-          <span>Deine Email wurde scheinbar noch nicht verifiziert!</span>
-        </div>
+      <div class="modal-action">
+        <a (click)="closeModalAndRefreshUser()" class="btn btn-success flex gap-2 items-center">
+          <fa-icon [icon]="lockIcon"></fa-icon>
+          Ich habe den Code gescannt
+        </a>
       </div>
     </div>
   </div>

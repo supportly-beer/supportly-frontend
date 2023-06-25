@@ -202,7 +202,7 @@ export class RegisterComponent {
 
     if (this.passwordInputField.hasError("minlength")) {
       this.passwordError = true;
-      this.passwordErrorMessage = "Das Passwort hat nicht die nötige Länge!";
+      this.passwordErrorMessage = "Das Passwort hat nicht die nötige Länge! (min. 8 Zeichen)";
     } else {
       this.passwordError = true;
       this.passwordErrorMessage = "Das Passwort wird benötigt!";
@@ -216,7 +216,7 @@ export class RegisterComponent {
 
     if (this.repeatPasswordInputField.hasError("minlength")) {
       this.repeatPasswordError = true;
-      this.repeatPasswordErrorMessage = "Das Passwort hat nicht die nötige Länge!";
+      this.repeatPasswordErrorMessage = "Das Passwort hat nicht die nötige Länge! (min. 8 Zeichen)";
     } else {
       this.repeatPasswordError = true;
       this.repeatPasswordErrorMessage = "Das Passwort wird benötigt!";
