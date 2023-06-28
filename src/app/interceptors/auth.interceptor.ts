@@ -18,12 +18,12 @@ export class AuthInterceptor implements HttpInterceptor {
           return;
         }
 
-        if (error.status == 403) {
-          localStorage.removeItem("accessToken")
-          this.router.navigate(["/auth/login"]).then()
-
+        if (error.status != 401) {
           return;
         }
+
+        localStorage.removeItem("accessToken")
+        this.router.navigate(["/auth/login"]).then()
       }
     }));
   }

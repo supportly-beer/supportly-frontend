@@ -3,10 +3,10 @@
     <div class="bg-base-200 rounded-xl shadow-lg p-2">
       <ul class="flex flex-col gap-4">
         <li *ngFor="let navEntry of navbarLinks">
-          <div [attr.data-tip]="navEntry.fullName" class="tooltip tooltip-right">
+          <div [attr.data-tip]="navEntry.fullName" class="tooltip tooltip-right w-full min-w-full">
             <a [class.btn-ghost]="!isUrl(navEntry.url)"
                [class.btn-primary]="isUrl(navEntry.url)"
-               class="btn w-full"
+               class="btn w-full min-w-full"
                routerLink="{{navEntry.url}}">
               <fa-icon [icon]="navEntry.icon" class="text-xl"></fa-icon>
             </a>
